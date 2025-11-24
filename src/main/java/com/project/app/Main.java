@@ -24,7 +24,7 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void setRoor(String fxml) {
+    public static void setRoot(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/main/resources/com/project/app/fxml/" + fxml + ".fxml"));
             Scene scene = new Scene(loader.load());
