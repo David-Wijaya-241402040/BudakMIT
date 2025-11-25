@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
-        FXMLLoader fxmlloader = new FXMLLoader(Main.class.getResource("/main/resources/com/project/app/fxml/layout/login.fxml"));
+        FXMLLoader fxmlloader = new FXMLLoader(Main.class.getResource("/main/resources/com/project/app/fxml/layout/main.fxml"));
         Scene scene = new Scene(fxmlloader.load());
         stage.setScene(scene);
         Image icons = new Image(getClass().getResourceAsStream("/main/resources/com/project/app/images/MITIcon.png"));
