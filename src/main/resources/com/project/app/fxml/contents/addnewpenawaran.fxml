@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.PenawaranController">
+<AnchorPane prefHeight="1000.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.AddNewPenawaranController">
    <children>
       <VBox layoutX="255.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -51,7 +51,7 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" layoutX="4.0" prefHeight="34.0" prefWidth="643.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0">
                                        <children>
-                                          <TextField prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
+                                          <TextField prefHeight="31.0" prefWidth="486.0" promptText="Masukkan Nama Perusahaan" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
                                              <font>
                                                 <Font name="Georgia" size="15.0" />
                                              </font>
@@ -71,7 +71,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="207.0" text="Tambah Penawaran">
+                        <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="172.0" text="Tambah Rincian">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -89,7 +89,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="131.0" prefWidth="1070.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="History Surat Penawaran">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rincian Pekerjaan &amp; Sparepart">
                                  <font>
                                     <Font name="Georgia" size="20.0" />
                                  </font>
