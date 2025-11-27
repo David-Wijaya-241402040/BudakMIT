@@ -43,7 +43,7 @@ public class LoginController {
         if (user != null) {
             try {
                 // Load file FXML halaman selanjutnya
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/contents/home.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/layout/main.fxml"));
                 Parent root = loader.load();
 
                 // Ambil stage saat ini (window-nya)
