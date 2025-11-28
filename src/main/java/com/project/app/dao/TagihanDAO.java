@@ -82,5 +82,41 @@ public class TagihanDAO {
         }
         return 0;
     }
+    public ObservableList<TagihanModel> searchTagihan(String key) {
+        String query = """
+    SELECT no_tag AS no_tagihan, sp_id, status_pembayaran AS status,
+           tenggat_pembayaran AS tanggal, total_harga
+    FROM tagihan
+    WHERE LOWER(no_tag) LIKE LOWER(?) OR LOWER(status_pembayaran) LIKE LOWER(?)
+    ORDER BY created_at DESC;
+    """;
+
+        ObservableList<TagihanModel> list = FXCollections.observableArrayList();
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            String param = "%" + key + "%";
+            ps.setString(1, param);
+            ps.setString(2, param);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new TagihanModel(
+                        rs.getString("no_tagihan"),
+                        rs.getInt("sp_id"),
+                        rs.getDate("tanggal"),
+                        rs.getDouble("total_harga"),
+                        rs.getString("status")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }
 

@@ -48,7 +48,7 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" layoutX="4.0" prefHeight="34.0" prefWidth="643.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0">
                                  <children>
-                                    <TextField prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
+                                    <TextField fx:id="fieldSearch" prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
                                        <font>
                                           <Font name="Georgia" size="15.0" />
                                        </font>
