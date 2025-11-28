@@ -43,17 +43,17 @@
                <children>
                   <AnchorPane prefHeight="31.0" prefWidth="971.0">
                      <children>
-                        <AnchorPane layoutX="-6.0" prefHeight="36.0" prefWidth="640.0" style="-fx-background-color: white; -fx-background-radius: 8 8 8 8; -fx-border-color: #c8c8c8; -fx-border-radius: 8 8 8 8; -fx-border-width: 1 1 1 1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="430.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutX="-6.0" prefHeight="36.0" prefWidth="644.0" style="-fx-background-color: white; -fx-background-radius: 8 8 8 8; -fx-border-color: #c8c8c8; -fx-border-radius: 8 8 8 8; -fx-border-width: 1 1 1 1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="426.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" layoutX="4.0" prefHeight="34.0" prefWidth="643.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0">
                                  <children>
-                                    <TextField prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
+                                    <TextField fx:id="searchField" prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
                                        <font>
                                           <Font name="Georgia" size="15.0" />
                                        </font>
                                     </TextField>
-                                    <ComboBox prefHeight="26.0" prefWidth="108.0" promptText="Categories" style="-fx-background-color: white; -fx-border-color: #c8c8c8; -fx-border-width: 0 1 0 1 2;" />
-                                    <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: white; -fx-border-color: white;">
+                                    <ComboBox fx:id="searchCategories" prefHeight="26.0" prefWidth="108.0" promptText="Categories" style="-fx-background-color: white; -fx-border-color: #c8c8c8; -fx-border-width: 0 1 0 1 2;" />
+                                    <Button fx:id="btnSearch" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSearch" prefHeight="33.0" prefWidth="26.0" style="-fx-background-color: white; -fx-border-color: white;">
                                        <graphic>
                                           <ImageView fitHeight="23.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -66,16 +66,40 @@
                               </HBox>
                            </children>
                         </AnchorPane>
+                        <Button fx:id="btnAddAccount" graphicTextGap="10.0" layoutX="942.0" layoutY="1.0" mnemonicParsing="false" onAction="#goAddPopup" prefHeight="35.0" prefWidth="128.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Add Account" textFill="WHITE" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="942.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/plus-penawaran.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="btnRefresh" graphicTextGap="10.0" layoutX="791.0" layoutY="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="34.0" prefWidth="99.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Refresh" textFill="WHITE" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="1.0">
+                           <font>
+                              <Font name="Georgia" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/refresh-manageaccount.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </AnchorPane>
-                  <TableView prefHeight="823.0" prefWidth="1070.0">
+                  <TableView fx:id="userTable" prefHeight="823.0" prefWidth="1070.0">
                     <columns>
-                      <TableColumn prefWidth="78.0" text="User ID" />
-                      <TableColumn prefWidth="188.0" text="Username" />
-                        <TableColumn prefWidth="295.0" text="Email" />
-                        <TableColumn prefWidth="190.0" text="No.Telp" />
-                        <TableColumn prefWidth="164.0" text="Total Surat Yang Dibuat" />
-                        <TableColumn prefWidth="153.0" text="Status" />
+                      <TableColumn fx:id="userIdColumn" prefWidth="78.0" text="User ID" />
+                      <TableColumn fx:id="usernameColumn" prefWidth="188.0" text="Username" />
+                        <TableColumn fx:id="emailColumn" prefWidth="295.0" text="Email" />
+                        <TableColumn fx:id="noTelpColumn" prefWidth="190.0" text="No.Telp" />
+                        <TableColumn fx:id="totalSuratColumn" prefWidth="164.0" text="Total Surat Yang Dibuat" />
+                        <TableColumn fx:id="statusColumn" prefWidth="153.0" text="Status" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
