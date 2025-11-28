@@ -8,17 +8,24 @@ public class DBConnection {
     private static Connection connection;
 
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
+        try {
+            // Kalau belum ada atau sudah tertutup → buka ulang koneksi
+            if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/budakmit",
                         "root",
-                        "" // password mysql kamu kalau ada
+                        ""
                 );
-            } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("✅ DB Connected / Reconnected");
             }
+        } catch (SQLException e) {
+            System.out.println("❌ DB Connection Failed");
+            e.printStackTrace();
         }
         return connection;
     }
+
+    // ⚠ HAPUS atau jangan gunakan method close seperti ini di mana pun
+    // public static void close() { connection.close(); }  ← Jangan ada ini dipanggil!
 }
+
