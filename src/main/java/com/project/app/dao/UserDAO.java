@@ -26,7 +26,8 @@ public class UserDAO implements UserDaoInterface {
                 return new UserModel(
                         rs.getInt("user_id"),
                         rs.getString("email"),
-                        rs.getString("password")
+                        rs.getString("password"),
+                        rs.getString("roles")
                 );
             }
 
