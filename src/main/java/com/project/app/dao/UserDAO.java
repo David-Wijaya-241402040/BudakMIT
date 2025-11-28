@@ -36,4 +36,20 @@ public class UserDAO implements UserDaoInterface {
         }
         return null;
     }
+
+    public boolean addUser(String username, String email, String noTelp, String password) {
+        String query = "INSERT INTO users (nickname, email, phone_number, password) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, username);
+            pst.setString(2, email);
+            pst.setString(3, noTelp);
+            pst.setString(4, password);
+            int rowsAffected = pst.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -11,14 +11,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class LogoutPopupController {
+public class LogoutPopupController implements MainInjectable {
     @FXML AnchorPane popupRoot;
     @FXML Button btnLogout;
 
     private MainController mainController;
 
-    public void setMainController(MainController controller) {
-        this.mainController = controller;
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     public void closePopup() {
