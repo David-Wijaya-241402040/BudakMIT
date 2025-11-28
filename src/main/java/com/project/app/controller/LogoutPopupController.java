@@ -1,12 +1,19 @@
 package main.java.com.project.app.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LogoutPopupController {
     @FXML AnchorPane popupRoot;
+    @FXML Button btnLogout;
 
     private MainController mainController;
 
@@ -27,9 +34,25 @@ public class LogoutPopupController {
         closePopup();
     }
 
-    @FXML private void confirmLogout() {
+    @FXML
+    private void confirmLogout() {
+        Stage stage = (Stage) btnLogout.getScene().getWindow();
         closePopup();
-        mainController.loadPage("login");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/layout/login.fxml"));
+            Parent root = loader.load();
+
+
+            // Ganti scene ke login
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }
 
