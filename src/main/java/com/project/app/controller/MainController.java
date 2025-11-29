@@ -9,33 +9,30 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import main.java.com.project.app.model.SparepartModel;
 
 import java.io.IOException;
 
-public class MainController {
+public class MainController implements SharedControllerProvider {
     @FXML private AnchorPane contentArea;
     @FXML private SidebarController sidebarController;
     @FXML private StackPane rootPane;
+    private SparepartController sparepartController;
 
     @FXML public void initialize() {
         sidebarController.setMainController(this);
         loadPage("home");
     }
 
-//    public void loadPage(String page){
-//        try {
-//            Node node = FXMLLoader.load(getClass().getResource("/main/resources/com/project/app/fxml/contents/" + page + ".fxml"));
-//            contentArea.getChildren().setAll(node);
-//
-//            AnchorPane.setTopAnchor(node, 0.0);
-//            AnchorPane.setBottomAnchor(node, 0.0);
-//            AnchorPane.setLeftAnchor(node, 0.0);
-//            AnchorPane.setRightAnchor(node, 0.0);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void setSparepartController(SparepartController controller) {
+        this.sparepartController = controller;
+    }
+
+    @Override
+    public SparepartController getSparepartController() {
+        return sparepartController;
+    }
 
     public void loadPage(String page){
         try {
@@ -49,6 +46,10 @@ public class MainController {
 
             if (controller instanceof MainInjectable) {
                 ((MainInjectable) controller).setMainController(this);
+            }
+
+            if (controller instanceof SparepartController) {
+                this.setSparepartController((SparepartController) controller);
             }
 
             contentArea.getChildren().setAll(node);
@@ -103,4 +104,30 @@ public class MainController {
         }
     }
 
+    public void handleManageSparepart(String actions, SparepartModel selectedSparepart) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createsparepart_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreateSparepartPopupController popupController = loader.getController();
+
+            popupController.setAction(actions);
+            popupController.setMainController(this);
+            popupController.setSparepartController(this.getSparepartController());
+
+            if (actions.equalsIgnoreCase("Update") && selectedSparepart != null) {
+                popupController.setSparepartData(selectedSparepart);
+            }
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
