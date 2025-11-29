@@ -22,9 +22,35 @@ public class MainController {
         loadPage("home");
     }
 
+//    public void loadPage(String page){
+//        try {
+//            Node node = FXMLLoader.load(getClass().getResource("/main/resources/com/project/app/fxml/contents/" + page + ".fxml"));
+//            contentArea.getChildren().setAll(node);
+//
+//            AnchorPane.setTopAnchor(node, 0.0);
+//            AnchorPane.setBottomAnchor(node, 0.0);
+//            AnchorPane.setLeftAnchor(node, 0.0);
+//            AnchorPane.setRightAnchor(node, 0.0);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void loadPage(String page){
         try {
-            Node node = FXMLLoader.load(getClass().getResource("/main/resources/com/project/app/fxml/contents/" + page + ".fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/main/resources/com/project/app/fxml/contents/" + page + ".fxml"
+            ));
+
+            Node node = loader.load();
+
+            Object controller = loader.getController();
+
+            if (controller instanceof MainInjectable) {
+                ((MainInjectable) controller).setMainController(this);
+            }
+
             contentArea.getChildren().setAll(node);
 
             AnchorPane.setTopAnchor(node, 0.0);
@@ -44,6 +70,26 @@ public class MainController {
             AnchorPane popup = loader.load();
 
             LogoutPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleAddAccount() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createaccount_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreateAccountPopupController popupController = loader.getController();
             popupController.setMainController(this);
 
             rootPane.getChildren().add(popup);
