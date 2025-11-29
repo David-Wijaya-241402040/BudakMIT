@@ -15,17 +15,34 @@ public class SidebarController {
     }
 
     @FXML private void initialize() {
-        String role = Session.currentUser.getRoles();
-        if(role.equals("owner")) {
-            btnLogoutAdmin.setVisible(false);
-            btnLogoutOwner.setVisible(true);
-            btnManageAccount.setVisible(true);
-        } else {
-            btnLogoutAdmin.setVisible(true);
-            btnLogoutOwner.setVisible(false);
-            btnManageAccount.setVisible(false);
+            String role = Session.currentUser.getRoles();
+            System.out.println("Role detected: " + role);
+
+            if(role.equals("owner")) {
+                btnManageAccount.setVisible(true);
+                btnManageAccount.setManaged(true);
+
+                btnLogoutOwner.setVisible(true);
+                btnLogoutOwner.setManaged(true);
+
+                btnLogoutAdmin.setVisible(false);
+                btnLogoutAdmin.setManaged(false);
+            } else {
+                btnManageAccount.setVisible(false);
+                btnManageAccount.setManaged(false);
+
+                btnLogoutOwner.setVisible(false);
+                btnLogoutOwner.setManaged(false);
+
+                btnLogoutAdmin.setVisible(true);
+                btnLogoutAdmin.setManaged(true);
+            }
+
+            System.out.println("Manage visible: " + btnManageAccount.isVisible());
+            System.out.println("Manage managed: " + btnManageAccount.isManaged());
         }
-    }
+
+
 
     @FXML private void goHome() {
         mainController.loadPage("home");

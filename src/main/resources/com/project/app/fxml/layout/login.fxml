@@ -69,7 +69,7 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleLogin" prefHeight="53.0" prefWidth="174.0" style="-fx-background-color: #00796B; -fx-background-radius: 20;" text="Masuk" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goLogin" prefHeight="53.0" prefWidth="174.0" style="-fx-background-color: #00796B; -fx-background-radius: 20;" text="Masuk" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

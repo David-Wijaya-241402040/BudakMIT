@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManageAccountDAO implements ManageAccountDAOInterface {
+public class ManageAccountDAO implements ManageAccountDaoInterface {
 
     private Connection conn;
 

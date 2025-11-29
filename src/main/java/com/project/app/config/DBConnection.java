@@ -8,17 +8,20 @@ public class DBConnection {
     private static Connection connection;
 
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
+        try {
+            if (connection == null || connection.isClosed()) {
                 connection = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/budakmit",
                         "root",
-                        "" // password mysql kamu kalau ada
+                        ""
                 );
-            } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("Koneksi database berhasil dibuka ulang ✅");
             }
+        } catch (SQLException e) {
+            System.err.println("Gagal membuka koneksi database ❌");
+            e.printStackTrace();
         }
         return connection;
     }
+
 }

@@ -30,7 +30,6 @@ public class UserDAO implements UserDaoInterface {
                         rs.getInt("user_id"),
                         rs.getString("email"),
                         rs.getString("password"),
-                        rs.getString("nickname"),
                         rs.getString("roles")
                 );
             }
@@ -54,7 +53,6 @@ public class UserDAO implements UserDaoInterface {
                         rs.getInt("user_id"),
                         rs.getString("email"),
                         rs.getString("password"),
-                        rs.getString("nickname"),
                         rs.getString("roles")
                 ));
             }
