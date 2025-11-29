@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.dao.UserDAO;
 import main.java.com.project.app.model.UserModel;
+import main.java.com.project.app.session.Session;
 
 import java.io.IOException;
 
@@ -34,13 +35,15 @@ public class LoginController {
     }
 
     @FXML
-    private void handleLogin() {
+    private void goLogin() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
         UserModel user = dao.login(email, password);
 
         if (user != null) {
+            Session.currentUser = user;
+
             try {
                 // Load file FXML halaman selanjutnya
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/layout/main.fxml"));

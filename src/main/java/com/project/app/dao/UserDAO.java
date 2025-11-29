@@ -4,7 +4,10 @@ import javafx.collections.ObservableList;
 import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.model.UserModel;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class UserDAO implements UserDaoInterface {
@@ -77,6 +80,5 @@ public class UserDAO implements UserDaoInterface {
         }
         return false;
     }
-
 
 }

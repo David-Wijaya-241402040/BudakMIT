@@ -56,3 +56,4 @@ public class LogoutPopupController implements MainInjectable {
     }
 
 }
+
