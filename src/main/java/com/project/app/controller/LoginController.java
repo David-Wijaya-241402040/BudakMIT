@@ -55,6 +55,7 @@ public class LoginController {
                 // Ganti scene ke halaman baru
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                stage.setTitle("Dashboard");
                 stage.show();
 
             } catch (IOException e) {

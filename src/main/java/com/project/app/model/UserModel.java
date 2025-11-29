@@ -7,11 +7,12 @@ public class UserModel {
     private final String password;
     private String roles;
 
-    public UserModel(int id, String email, String password, String roles) {
+    public UserModel(int id, String email, String password, String roles,String nickname) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.nickname = nickname;
     }
 
 
@@ -27,7 +28,6 @@ public class UserModel {
     public String getPassword() {
         return password;
     }
-    public String getRoles() {
-        return roles;
-    }
+    public String getRoles() {return roles;}
+
 }

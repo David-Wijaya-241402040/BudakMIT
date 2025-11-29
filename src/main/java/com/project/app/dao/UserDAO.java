@@ -1,4 +1,7 @@
 package main.java.com.project.app.dao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.model.UserModel;
 
 import java.sql.Connection;
@@ -27,6 +30,7 @@ public class UserDAO implements UserDaoInterface {
                         rs.getInt("user_id"),
                         rs.getString("email"),
                         rs.getString("password"),
+                        rs.getString("nickname"),
                         rs.getString("roles")
                 );
             }
@@ -35,6 +39,31 @@ public class UserDAO implements UserDaoInterface {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public ObservableList<UserModel> listUser() {
+        String query = "SELECT * FROM users";
+        ObservableList<UserModel> userList = FXCollections.observableArrayList();
+
+        try (PreparedStatement pst = connection.prepareStatement(query);
+             ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                userList.add(new UserModel(
+                        rs.getInt("user_id"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("nickname"),
+                        rs.getString("roles")
+                ));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
     }
 
     public boolean addUser(String username, String email, String noTelp, String password) {
