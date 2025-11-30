@@ -134,5 +134,15 @@ public class SparepartDAO {
         return st.executeUpdate() > 0;
     }
 
-
+    public boolean deleteSparepart(int id) {
+        String sql = "DELETE FROM komponen WHERE component_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0; // true kalau ada baris terhapus
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
