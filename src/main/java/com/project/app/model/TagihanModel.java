@@ -4,14 +4,16 @@ import java.time.LocalDate;
 
 public class TagihanModel {
     private String noTag;
+    private int spId;
     private String noSP;
     private String perusahaan;
     private LocalDate tanggal;
     private double total;
     private String status;
 
-    public TagihanModel(String noTag, String noSP, String perusahaan, LocalDate tanggal, double total, String status) {
+    public TagihanModel(String noTag, int spId, String noSP, String perusahaan, LocalDate tanggal, double total, String status) {
         this.noTag = noTag;
+        this.spId = spId;
         this.noSP = noSP;
         this.perusahaan = perusahaan;
         this.tanggal = tanggal;
@@ -36,5 +38,9 @@ public class TagihanModel {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public int getSpId() { return spId; }
+    public void setSpId(int spId) { this.spId = spId; }
+
 
 }
