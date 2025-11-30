@@ -9,113 +9,73 @@ import java.sql.*;
 
 public class TagihanDAO {
 
-    public ObservableList<TagihanModel> listTagihan() {
-
-        String query = """
-        SELECT t.no_tag AS no_tagihan,
-               t.sp_id,
-               t.status_pembayaran AS status,
-               t.tenggat_pembayaran AS tanggal,
-               (
-                   SELECT SUM(dp.qty * h.harga_acuan)
-                   FROM jobs j
-                   JOIN detail_pekerjaan dp ON dp.job_id = j.job_id
-                   JOIN history_harga_komponen h ON h.component_id = dp.component_id
-                   WHERE j.sp_id = t.sp_id
-                   AND h.tanggal_berlaku = (
-                        SELECT MAX(h2.tanggal_berlaku)
-                        FROM history_harga_komponen h2
-                        WHERE h2.component_id = dp.component_id
-                   )
-               ) AS total_harga
-        FROM tagihan t
-        ORDER BY t.created_at DESC;
-        """;
-
+    public ObservableList<TagihanModel> getAllTagihan() {
         ObservableList<TagihanModel> list = FXCollections.observableArrayList();
 
-        try (Connection conn = DBConnection.getConnection();
-             Statement st = DBConnection.getConnection().createStatement();
-             ResultSet rs = st.executeQuery(query)) {
+        String query = "SELECT * FROM view_tagihan_penawaran";
 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+                Date sqlDate = rs.getDate("tanggal");
+
                 list.add(new TagihanModel(
-                        rs.getString("no_tagihan"),
-                        rs.getInt("sp_id"),
-                        rs.getDate("tanggal"),
-                        rs.getDouble("total_harga"), // computed total
+                        rs.getString("no_tag"),
+                        rs.getString("no_sp"),
+                        rs.getString("nama_perusahaan"),
+                        sqlDate != null ? sqlDate.toLocalDate() : null,
+                        rs.getDouble("total"),
                         rs.getString("status")
                 ));
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return list;
     }
 
-    public double hitungGrandTotal() {
-        String query = """
-        SELECT SUM(dp.qty * h.harga_acuan) AS grand_total
-        FROM detail_pekerjaan dp
-        JOIN history_harga_komponen h ON h.component_id = dp.component_id
-        WHERE h.tanggal_berlaku = (
-            SELECT MAX(h2.tanggal_berlaku)
-            FROM history_harga_komponen h2
-            WHERE h2.component_id = dp.component_id
-        );
-        """;
 
-        try (Connection conn = DBConnection.getConnection();
-             Statement st = DBConnection.getConnection().createStatement();
-             ResultSet rs = st.executeQuery(query)) {
-
-
-            if (rs.next()) {
-                return rs.getDouble("grand_total");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-    public ObservableList<TagihanModel> searchTagihan(String key) {
-        String query = """
-    SELECT no_tag AS no_tagihan, sp_id, status_pembayaran AS status,
-           tenggat_pembayaran AS tanggal, total_harga
-    FROM tagihan
-    WHERE LOWER(no_tag) LIKE LOWER(?) OR LOWER(status_pembayaran) LIKE LOWER(?)
-    ORDER BY created_at DESC;
-    """;
-
+    public ObservableList<TagihanModel> searchTagihan(String value, String category) {
         ObservableList<TagihanModel> list = FXCollections.observableArrayList();
+
+        String col;
+
+        switch (category) {
+            case "No Tagihan": col = "no_tag"; break;
+            case "No Surat": col = "no_sp"; break;
+            case "Perusahaan": col = "nama_perusahaan"; break;
+            default: col = "no_tag";
+        }
+
+        String query = "SELECT * FROM view_tagihan_penawaran WHERE " + col + " LIKE ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
-            String param = "%" + key + "%";
-            ps.setString(1, param);
-            ps.setString(2, param);
+            ps.setString(1, "%" + value + "%");
 
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new TagihanModel(
-                        rs.getString("no_tagihan"),
-                        rs.getInt("sp_id"),
-                        rs.getDate("tanggal"),
-                        rs.getDouble("total_harga"),
-                        rs.getString("status")
-                ));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Date sqlDate = rs.getDate("tanggal");
+
+                    list.add(new TagihanModel(
+                            rs.getString("no_tag"),
+                            rs.getString("no_sp"),
+                            rs.getString("nama_perusahaan"),
+                            sqlDate != null ? sqlDate.toLocalDate() : null,
+                            rs.getDouble("total"),
+                            rs.getString("status")
+                    ));
+                }
             }
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         return list;
     }
-
 }
