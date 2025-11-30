@@ -58,10 +58,14 @@ public class SparepartController implements MainInjectable {
 
         loadData();
 
-        // Update hanya aktif jika ada baris terpilih
         btnUpdate.setDisable(true);
         tableKomponen.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             btnUpdate.setDisable(newVal == null);
+        });
+
+        btnDelete.setDisable(true);
+        tableKomponen.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            btnDelete.setDisable(newVal == null);
         });
     }
 
@@ -116,6 +120,11 @@ public class SparepartController implements MainInjectable {
 
     @FXML
     public void goDelete() {
+        SparepartModel selected = tableKomponen.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            return;
+        }
 
+        mainController.handleManageSparepart("Delete", selected);
     }
 }

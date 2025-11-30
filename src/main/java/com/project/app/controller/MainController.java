@@ -3,9 +3,12 @@ package main.java.com.project.app.controller;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -106,19 +109,38 @@ public class MainController implements SharedControllerProvider {
 
     public void handleManageSparepart(String actions, SparepartModel selectedSparepart) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createsparepart_popup.fxml"));
+            FXMLLoader loader = null;
+            if(actions.equals("Add") || actions.equals("Update")) {
+                loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createsparepart_popup.fxml"));
+            } else if (actions.equals("Delete")) {
+                loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/deletesparepart_popup.fxml"));
+            }
+
+            if(loader == null) {
+                showAlert("WARNING", "Loader is null, you can't continue forward!");
+                return;
+            }
 
             AnchorPane popup = loader.load();
 
-            CreateSparepartPopupController popupController = loader.getController();
+            if(actions.equals("Add") || actions.equals("Update")) {
+                CreateSparepartPopupController popupController = loader.getController();
 
-            popupController.setAction(actions);
-            popupController.setMainController(this);
-            popupController.setSparepartController(this.getSparepartController());
+                popupController.setAction(actions);
+                popupController.setMainController(this);
+                popupController.setSparepartController(this.getSparepartController());
 
-            if (actions.equalsIgnoreCase("Update") && selectedSparepart != null) {
+                if (actions.equalsIgnoreCase("Update") && selectedSparepart != null) {
+                    popupController.setSparepartData(selectedSparepart);
+                }
+            } else if(actions.equals("Delete")) {
+                DeleteSparepartPopupController popupController = loader.getController();
+
+                popupController.setMainController(this);
+                popupController.setSparepartController(this.getSparepartController());
                 popupController.setSparepartData(selectedSparepart);
             }
+
 
             rootPane.getChildren().add(popup);
 
@@ -129,5 +151,13 @@ public class MainController implements SharedControllerProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    void showAlert(String title, String msg) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
+            alert.setTitle(title);
+            alert.showAndWait();
+        });
     }
 }
