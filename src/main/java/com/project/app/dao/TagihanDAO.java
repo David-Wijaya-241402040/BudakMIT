@@ -23,6 +23,7 @@ public class TagihanDAO {
 
                 list.add(new TagihanModel(
                         rs.getString("no_tag"),
+                        rs.getInt("sp_id"),
                         rs.getString("no_sp"),
                         rs.getString("nama_perusahaan"),
                         sqlDate != null ? sqlDate.toLocalDate() : null,
@@ -64,6 +65,7 @@ public class TagihanDAO {
 
                     list.add(new TagihanModel(
                             rs.getString("no_tag"),
+                            rs.getInt("sp_id"),
                             rs.getString("no_sp"),
                             rs.getString("nama_perusahaan"),
                             sqlDate != null ? sqlDate.toLocalDate() : null,
@@ -78,4 +80,47 @@ public class TagihanDAO {
         }
         return list;
     }
+
+    public boolean insertTagihan(String noTag, int spId, String status, java.time.LocalDate tenggat) {
+        String sql = "INSERT INTO tagihan (no_tag, sp_id, status_pembayaran, tenggat_pembayaran) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, noTag);
+            ps.setInt(2, spId);
+            ps.setString(3, status);
+            if (tenggat != null) {
+                ps.setDate(4, Date.valueOf(tenggat));
+            } else {
+                ps.setDate(4, null);
+            }
+
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateTagihan(String noTag, int spId, String status, java.time.LocalDate tenggat) {
+        String sql = "UPDATE tagihan SET sp_id = ?, status_pembayaran = ?, tenggat_pembayaran = ? WHERE no_tag = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, spId);
+            ps.setString(2, status);
+            if (tenggat != null) {
+                ps.setDate(3, Date.valueOf(tenggat));
+            } else {
+                ps.setDate(3, null);
+            }
+            ps.setString(4, noTag);
+
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

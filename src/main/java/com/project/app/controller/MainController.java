@@ -13,7 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import main.java.com.project.app.model.SparepartModel;
+import main.java.com.project.app.model.TagihanModel;
 
+import javax.swing.text.html.HTML;
 import java.io.IOException;
 
 public class MainController implements SharedControllerProvider {
@@ -21,6 +23,7 @@ public class MainController implements SharedControllerProvider {
     @FXML private SidebarController sidebarController;
     @FXML private StackPane rootPane;
     private SparepartController sparepartController;
+    private TagihanController tagihanController;
 
     @FXML public void initialize() {
         sidebarController.setMainController(this);
@@ -35,6 +38,16 @@ public class MainController implements SharedControllerProvider {
     @Override
     public SparepartController getSparepartController() {
         return sparepartController;
+    }
+
+    @Override
+    public void setTagihanController(TagihanController controller) {
+        this.tagihanController = controller;
+    }
+
+    @Override
+    public TagihanController getTagihanController() {
+        return tagihanController;
     }
 
     public void loadPage(String page){
@@ -53,6 +66,8 @@ public class MainController implements SharedControllerProvider {
 
             if (controller instanceof SparepartController) {
                 this.setSparepartController((SparepartController) controller);
+            } else if (controller instanceof TagihanController) {
+                this.setTagihanController((TagihanController) controller);
             }
 
             contentArea.getChildren().setAll(node);
@@ -152,6 +167,36 @@ public class MainController implements SharedControllerProvider {
             e.printStackTrace();
         }
     }
+
+    public void handleManageTagihan(String actions, TagihanModel selectedTagihan) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createtagihan_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreateTagihanPopupController popupController = loader.getController();
+
+            popupController.setAction(actions);
+            popupController.setMainController(this);
+            popupController.setTagihanController(this.getTagihanController());
+
+            if (actions.equalsIgnoreCase("Update") && selectedTagihan != null) {
+                popupController.setTagihanData(selectedTagihan);
+            }
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     void showAlert(String title, String msg) {
         Platform.runLater(() -> {

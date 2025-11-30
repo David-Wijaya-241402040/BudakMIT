@@ -1,18 +1,20 @@
 package main.java.com.project.app.controller;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.java.com.project.app.Main;
 import main.java.com.project.app.dao.TagihanDAO;
+import main.java.com.project.app.model.SparepartModel;
 import main.java.com.project.app.model.TagihanModel;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class TagihanController implements Initializable {
+public class TagihanController implements Initializable, MainInjectable {
+    private MainController mainController;
 
     @FXML
     private Button btnSearch, btnRefresh, btnAdd, btnUpdate;
@@ -27,10 +29,20 @@ public class TagihanController implements Initializable {
     private TagihanDAO dao = new TagihanDAO();
 
     @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         setupTable();
         setupCategory();
         loadData();
+
+        btnUpdate.setDisable(true);
+        tableTagihan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            btnUpdate.setDisable(newVal == null);
+        });
     }
 
     private void setupTable() {
@@ -61,7 +73,7 @@ public class TagihanController implements Initializable {
         categoryBox.getSelectionModel().selectFirst();
     }
 
-    private void loadData() {
+    public void loadData() {
         tableTagihan.setItems(dao.getAllTagihan());
     }
 
@@ -80,7 +92,23 @@ public class TagihanController implements Initializable {
 
     @FXML
     private void onRefresh() {
-        searchField.clear();
         loadData();
+        searchField.clear();
+    }
+
+    @FXML
+    public void goUpdate() {
+        TagihanModel selected = tableTagihan.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
+        int spId = selected.getSpId();
+        mainController.handleManageTagihan("Update", selected);
+    }
+
+    @FXML
+    public void goAdd() {
+        mainController.handleManageTagihan("Add", null);
     }
 }
