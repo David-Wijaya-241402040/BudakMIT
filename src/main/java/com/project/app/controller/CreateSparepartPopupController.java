@@ -69,7 +69,6 @@ public class CreateSparepartPopupController implements MainInjectable {
         hargaField.setText(String.valueOf(sparepart.getHargaBaru()));
     }
 
-
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;

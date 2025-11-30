@@ -1,63 +1,63 @@
 package main.java.com.project.app.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import main.java.com.project.app.config.DBConnection;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import main.java.com.project.app.dao.PenawaranDAO;
+import main.java.com.project.app.model.PenawaranModel;
 
-
+import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
-public class PenawaranController implements Initializable {
+public class PenawaranController implements Initializable, MainInjectable {
 
-    @FXML private VBox vboxSuratContainer; // container list card SP
+    private MainController mainController;
+    @FXML private VBox vboxSuratContainer;
+    private static Parent viewListPenawaran; // tampilan list SP awal
+    private AddNewPenawaranController addNewPenawaranController;
 
-    public void loadSP() throws SQLException {
-        String sql = "SELECT * FROM view_surat_penawaran_detail ORDER BY sp_id ASC, job_id ASC";
 
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
 
-            Map<String, SPItem> spMap = new LinkedHashMap<>();
+    private final PenawaranDAO dao = new PenawaranDAO();
 
-            while (rs.next()) {
-                String noSP = rs.getString("no_sp");
-                String perusahaan = rs.getString("nama_perusahaan");
-                String pembuat = rs.getString("nama_pembuat");
-                int jobId = rs.getInt("job_id");
-                String pekerjaan = rs.getString("nama_pekerjaan");
-                String namaMesin = rs.getString("nama_mesin");
-                String spesifikasi = rs.getString("spesifikasi_mesin");
-                double harga = rs.getDouble("harga_aktual");
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
-                spMap.putIfAbsent(noSP, new SPItem(noSP, perusahaan, pembuat));
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            loadSP();
+        } catch (Exception e) {
+            System.err.println("❌ Error load SP: " + e.getMessage());
+        }
 
-                if (jobId > 0 && pekerjaan != null) {
-                    spMap.get(noSP).jobs.add(
-                            new JobDetail(jobId, pekerjaan, namaMesin, spesifikasi, harga)
-                    );
-                }
-            }
+    }
 
-            vboxSuratContainer.getChildren().clear();
+    private void loadSP() throws SQLException {
+        Map<String, PenawaranModel.SPItem> spMap = dao.loadSP();
 
-            for (SPItem sp : spMap.values()) {
-                vboxSuratContainer.getChildren().add(createSPPane(sp));
-            }
+        vboxSuratContainer.getChildren().clear();
 
-        } catch (SQLException e) {
-            System.err.println("❌ Error SQL loadSP(): " + e.getMessage());
+        for (PenawaranModel.SPItem sp : spMap.values()) {
+            vboxSuratContainer.getChildren().add(createSPPane(sp));
         }
     }
 
-    private AnchorPane createSPPane(SPItem sp) {
+    private AnchorPane createSPPane(PenawaranModel.SPItem sp) {
         AnchorPane ap = new AnchorPane();
         ap.setPrefWidth(1000);
         ap.setStyle("-fx-background-color: white; -fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #c8c8c8; -fx-border-width: 1;");
@@ -77,7 +77,7 @@ public class PenawaranController implements Initializable {
 
         double total = 0;
         int maxShow = 2;
-        List<JobDetail> jobs = sp.jobs;
+        List<PenawaranModel.JobDetail> jobs = sp.jobs;
 
         if (jobs.isEmpty()) {
             Label emptyLabel = new Label("x. Belum ada pekerjaan");
@@ -91,7 +91,7 @@ public class PenawaranController implements Initializable {
         // Jika ada job → tampil seperti biasa
         else {
             for (int i = 0; i < Math.min(jobs.size(), maxShow); i++) {
-                JobDetail jd = jobs.get(i);
+                PenawaranModel.JobDetail jd = jobs.get(i);
                 Label jobLabel = new Label(
                         (i + 1) + ". " + jd.pekerjaan + " | "
                                 + (jd.nama_mesin == null ? "-" : jd.nama_mesin) + " | "
@@ -111,7 +111,7 @@ public class PenawaranController implements Initializable {
             moreList.setManaged(false);
 
             for (int i = maxShow; i < jobs.size(); i++) {
-                JobDetail jd = jobs.get(i);
+                PenawaranModel.JobDetail jd = jobs.get(i);
                 Label jobLabel = new Label(
                         (i + 1) + ". " + jd.pekerjaan + " | "
                                 + (jd.nama_mesin == null ? "-" : jd.nama_mesin) + " | "
@@ -177,45 +177,47 @@ public class PenawaranController implements Initializable {
         ap.getChildren().addAll(lblSP, lblPerusahaan, lblPembuat, jobContainer, lblTotal);
         ap.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        // Tombol untuk buka detail penawaran (pindah scene/halaman)
+        Button btnBuka = new Button("Buka Penawaran");
+        btnBuka.setStyle(
+                "-fx-font-family: Georgia; " +
+                        "-fx-font-size: 13px; " +
+                        "-fx-background-color: linear-gradient(to bottom, #4a90e2, #357ABD); " +
+                        "-fx-text-fill: white; " +
+                        "-fx-background-radius: 8; " +
+                        "-fx-padding: 6 18 6 18; " +
+                        "-fx-border-color: #2C5FA8; " +
+                        "-fx-border-width: 1.2; " +
+                        "-fx-border-radius: 8; " +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(53,122,189,0.4), 8, 0.3, 0, 2);"
+        );
+
+        // Hover effect
+                btnBuka.setOnMouseEntered(e -> btnBuka.setStyle(btnBuka.getStyle().replace("#357ABD", "#2C5FA8")));
+                btnBuka.setOnMouseExited(e -> btnBuka.setStyle(btnBuka.getStyle().replace("#2C5FA8", "#357ABD")));
+
+
+        // Action pindah ke scene detail
+        btnBuka.setOnAction(e -> {
+            System.out.println("SP ID yang diklik: " + sp.sp_id); // cek di console dulu
+            mainController.setSPIdBuffer(sp.sp_id); // simpen dulu
+            mainController.loadPage("addnewpenawaran"); // baru pindah scene
+        });
+
+
+
+        // Set posisi tombol di kanan
+                AnchorPane.setTopAnchor(btnBuka, 45.0);
+                AnchorPane.setRightAnchor(btnBuka, 15.0);
+                ap.getChildren().add(btnBuka);
         return ap;
     }
 
-    class SPItem {
-        String noSP, perusahaan, pembuat;
-        List<JobDetail> jobs = new ArrayList<>();
-        SPItem(String noSP, String perusahaan, String pembuat) {
-            this.noSP = noSP;
-            this.perusahaan = perusahaan;
-            this.pembuat = pembuat;
-        }
-    }
 
-    class JobDetail {
-        int jobId;
-        String pekerjaan;
-        String nama_mesin;
-        String spesifikasi_mesin;
-        double harga;
 
-        JobDetail(int jobId, String pekerjaan, String namaMesin, String spesifikasiMesin, double harga) {
-            this.jobId = jobId;
-            this.pekerjaan = pekerjaan;
-            this.nama_mesin = namaMesin;
-            this.spesifikasi_mesin = spesifikasiMesin;
-            this.harga = harga;
-        }
-    }
 
     private String formatRupiah(double value) {
         return String.format("%,.0f", value).replace(",", ".");
-    }
-
-    @Override
-    public void initialize(URL loc, ResourceBundle res) {
-        try {
-            loadSP();
-        } catch (Exception e) {
-            System.err.println("❌ Gagal load SP di initialize(): " + e.getMessage());
-        }
     }
 }

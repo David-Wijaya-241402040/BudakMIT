@@ -1,96 +1,114 @@
 package main.java.com.project.app.controller;
 
-
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import main.java.com.project.app.Main;
 import main.java.com.project.app.dao.TagihanDAO;
+import main.java.com.project.app.model.SparepartModel;
 import main.java.com.project.app.model.TagihanModel;
 
 import java.net.URL;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
-public class TagihanController implements Initializable {
+public class TagihanController implements Initializable, MainInjectable {
+    private MainController mainController;
 
+    @FXML
+    private Button btnSearch, btnRefresh, btnAdd, btnUpdate;
+    @FXML private TextField searchField;
+    @FXML private ComboBox<String> categoryBox;
     @FXML private TableView<TagihanModel> tableTagihan;
-    @FXML private TableColumn<TagihanModel, String> colNoTagihan;
-    @FXML private TableColumn<TagihanModel, Integer> colSpId;
-    @FXML private TableColumn<TagihanModel, Date> colTanggal;
-    @FXML private TableColumn<TagihanModel, String> colTotal;
-    @FXML private TableColumn<TagihanModel, String> colStatus;
-    @FXML private Label labelGrandTotal;
-    @FXML private TextField fieldSearch;
 
+    @FXML private TableColumn<TagihanModel, String> colNoTag, colNoSP, colPerusahaan, colStatus;
+    @FXML private TableColumn<TagihanModel, LocalDate> colTanggal;
+    @FXML private TableColumn<TagihanModel, Double> colTotal;
 
-    private final TagihanDAO tagihanDAO = new TagihanDAO();
-    private ObservableList<TagihanModel> masterData = FXCollections.observableArrayList();
+    private TagihanDAO dao = new TagihanDAO();
+
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colNoTagihan.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNoTagihan()));
-        colSpId.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getSpId()).asObject());
-        colTanggal.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getTanggal()));
+        setupTable();
+        setupCategory();
+        loadData();
 
-        // pakai format rupiah ke String
-        colTotal.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTotalHargaRupiah()));
-
-        colStatus.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStatus()));
-
-        tableTagihan.setItems(tagihanDAO.listTagihan());
-
-        // isi grand total
-        double totalAll = tagihanDAO.hitungGrandTotal();
-        labelGrandTotal.setText("Total: Rp " + String.format("%,.0f", totalAll).replace(",", "."));
-
-        // load data awal ke master list
-        masterData = tagihanDAO.listTagihan();
-        tableTagihan.setItems(masterData);
-
-        // search listener
-        fieldSearch.textProperty().addListener((obs, oldVal, newVal) -> {
-            filterData(newVal);
+        btnUpdate.setDisable(true);
+        tableTagihan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            btnUpdate.setDisable(newVal == null);
         });
-
-        // isi total awal
-        updateGrandTotal(masterData);
     }
 
-    private void filterData(String keyword) {
-        if (keyword == null || keyword.isBlank()) {
-            tableTagihan.setItems(masterData);
-            filterData(keyword);
-            updateGrandTotal(masterData);
+    private void setupTable() {
+        colNoTag.setCellValueFactory(new PropertyValueFactory<>("noTag"));
+        colNoSP.setCellValueFactory(new PropertyValueFactory<>("noSP"));
+        colPerusahaan.setCellValueFactory(new PropertyValueFactory<>("perusahaan"));
+        colTanggal.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        colTanggal.setCellFactory(column -> new TableCell<TagihanModel, LocalDate>() {
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null); // JANGAN TAMPILKAN "-"
+                    return;
+                }
+
+                setText(item == null ? "-" : item.toString());
+            }
+        });
+
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+
+    private void setupCategory() {
+        categoryBox.getItems().addAll("No Tagihan", "No Surat", "Perusahaan");
+        categoryBox.getSelectionModel().selectFirst();
+    }
+
+    public void loadData() {
+        tableTagihan.setItems(dao.getAllTagihan());
+    }
+
+    @FXML
+    private void onSearch() {
+        String value = searchField.getText().trim();
+        String category = categoryBox.getValue();
+
+        if (value.isEmpty()) {
+            loadData();
             return;
         }
 
-        String lowerKey = keyword.toLowerCase();
-
-        ObservableList<TagihanModel> filtered = masterData.stream()
-                .filter(item ->
-                        item.getNoTagihan().toLowerCase().contains(lowerKey) ||
-                                item.getStatus().toLowerCase().contains(lowerKey) ||
-                                String.valueOf(item.getSpId()).contains(lowerKey)
-                )
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        tableTagihan.setItems(filtered);
-        updateGrandTotal(filtered);
-        System.out.println("🔍 Keyword search: " + keyword);
-        System.out.println("📌 Jumlah data setelah filter: " + tableTagihan.getItems().size());
+        tableTagihan.setItems(dao.searchTagihan(value, category));
     }
-    private void updateGrandTotal(ObservableList<TagihanModel> list) {
-        double total = list.stream().mapToDouble(TagihanModel::getTotalHarga).sum();
-        labelGrandTotal.setText("Total: Rp " + String.format("%,.0f", total).replace(",", "."));
+
+    @FXML
+    private void onRefresh() {
+        loadData();
+        searchField.clear();
+    }
+
+    @FXML
+    public void goUpdate() {
+        TagihanModel selected = tableTagihan.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
+        int spId = selected.getSpId();
+        mainController.handleManageTagihan("Update", selected);
+    }
+
+    @FXML
+    public void goAdd() {
+        mainController.handleManageTagihan("Add", null);
     }
 }
