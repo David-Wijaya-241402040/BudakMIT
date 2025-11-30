@@ -76,21 +76,33 @@ public class PenawaranController implements Initializable {
         jobContainer.setStyle("-fx-padding: 5 0 0 0;");
 
         double total = 0;
-        int maxShow = 3;
+        int maxShow = 2;
         List<JobDetail> jobs = sp.jobs;
 
-        for (int i = 0; i < Math.min(jobs.size(), maxShow); i++) {
-            JobDetail jd = jobs.get(i);
-            Label jobLabel = new Label(
-                    (i + 1) + ". " + jd.pekerjaan + " | "
-                            + (jd.nama_mesin == null ? "-" : jd.nama_mesin) + " | "
-                            + (jd.spesifikasi_mesin == null ? "-" : jd.spesifikasi_mesin)
-            );
-            jobLabel.setWrapText(true);
-            jobLabel.setMaxWidth(750);
-            jobLabel.setStyle("-fx-font-family: Georgia; -fx-font-size: 13px;");
-            jobContainer.getChildren().add(jobLabel);
-            total += jd.harga;
+        if (jobs.isEmpty()) {
+            Label emptyLabel = new Label("x. Belum ada pekerjaan");
+            emptyLabel.setWrapText(true);
+            emptyLabel.setMaxWidth(750);
+            emptyLabel.setStyle("-fx-font-family: Georgia; -fx-font-size: 13px; -fx-font-style: italic; -fx-text-fill: #888;");
+            jobContainer.getChildren().add(emptyLabel);
+        }
+        // ==========================
+
+        // Jika ada job → tampil seperti biasa
+        else {
+            for (int i = 0; i < Math.min(jobs.size(), maxShow); i++) {
+                JobDetail jd = jobs.get(i);
+                Label jobLabel = new Label(
+                        (i + 1) + ". " + jd.pekerjaan + " | "
+                                + (jd.nama_mesin == null ? "-" : jd.nama_mesin) + " | "
+                                + (jd.spesifikasi_mesin == null ? "-" : jd.spesifikasi_mesin)
+                );
+                jobLabel.setWrapText(true);
+                jobLabel.setMaxWidth(750);
+                jobLabel.setStyle("-fx-font-family: Georgia; -fx-font-size: 13px;");
+                jobContainer.getChildren().add(jobLabel);
+                total += jd.harga;
+            }
         }
 
         if (jobs.size() > maxShow) {
@@ -112,14 +124,33 @@ public class PenawaranController implements Initializable {
                 total += jd.harga;
             }
 
-            Button btnMore = new Button("Show More ▾");
-            btnMore.setStyle("-fx-font-family: Georgia; -fx-font-size: 13px; -fx-background-radius: 6; -fx-border-radius: 6;");
+            Button btnMore = new Button("Show More");
+            btnMore.setStyle(
+                    "-fx-font-family: Georgia; " +
+                            "-fx-font-size: 13px; " +
+                            "-fx-background-color: linear-gradient(to bottom, #0edbb8, #0fbda1); " +
+                            "-fx-text-fill: white; " +
+                            "-fx-background-radius: 8; " +
+                            "-fx-padding: 6 18 6 18; " +
+                            "-fx-border-color: #0aa98f; " +
+                            "-fx-border-width: 1.2; " +
+                            "-fx-border-radius: 8; " +
+                            "-fx-cursor: hand;" +
+                            "-fx-effect: dropshadow(gaussian, rgba(15,189,161,0.4), 8, 0.3, 0, 2);"
+            );
+
+// efek hover & klik biar ada feedback warna
+            btnMore.setOnMouseEntered(e -> btnMore.setStyle(btnMore.getStyle().replace("#0fbda1", "#0aa98f")));
+            btnMore.setOnMousePressed(e -> btnMore.setStyle(btnMore.getStyle().replace("#0aa98f", "#08947d")));
+            btnMore.setOnMouseExited(e -> btnMore.setStyle(btnMore.getStyle() + "-fx-background-color:#0fbda1;"));
+            btnMore.setOnMouseReleased(e -> btnMore.setStyle(btnMore.getStyle() + "-fx-background-color:#0aa98f;"));
+
 
             btnMore.setOnAction(e -> {
                 boolean show = moreList.isVisible();
                 moreList.setVisible(!show);
                 moreList.setManaged(!show);
-                btnMore.setText(!show ? "Show Less ▴" : "Show More ▾");
+                btnMore.setText(!show ? "Show Less" : "Show More");
             });
 
             jobContainer.getChildren().addAll(moreList, btnMore);
