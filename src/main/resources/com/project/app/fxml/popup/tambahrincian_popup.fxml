@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.java.com.project.app.controller.TambahRincianPopupController"
+      spacing="10" prefWidth="600" prefHeight="700">
+
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+    <Label text="Tambah Rincian Pekerjaan" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+    <Separator/>
+
+    <VBox spacing="5">
+        <Label text="Nama Pekerjaan:"/>
+        <TextField fx:id="namaPekerjaanField" promptText="Contoh: Perbaikan Mesin CNC"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Nama Mesin:"/>
+        <TextField fx:id="namaMesinField" promptText="Contoh: Mesin CNC 5-Axis"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Spesifikasi Mesin:"/>
+        <TextField fx:id="spesifikasiField" promptText="Contoh: CNC Milling, 5 Axis, 10HP"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Deskripsi:"/>
+        <TextArea fx:id="deskripsiArea" prefRowCount="3" promptText="Deskripsi pekerjaan..."/>
+    </VBox>
+
+    <Separator/>
+    <Label text="Tambah Komponen" style="-fx-font-weight: bold;"/>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <VBox spacing="5">
+            <Label text="Nama Komponen:"/>
+            <ComboBox fx:id="komponenComboBox" prefWidth="200"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Qty:"/>
+            <TextField fx:id="qtyField" prefWidth="80" promptText="1"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Harga Modal:"/>
+            <TextField fx:id="hargaModalField" prefWidth="120" promptText="100000"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Harga Aktual:"/>
+            <TextField fx:id="hargaAktualField" prefWidth="120" promptText="120000" editable="false"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text=" "/>
+            <Button fx:id="btnTambahKomponen" text="Tambah" prefWidth="80"/>
+        </VBox>
+    </HBox>
+
+    <TableView fx:id="tabelKomponen" prefHeight="200">
+        <columns>
+            <TableColumn fx:id="colNama" text="Nama Komponen" prefWidth="200"/>
+            <TableColumn fx:id="colQty" text="Qty" prefWidth="80"/>
+            <TableColumn fx:id="colHarga" text="Harga" prefWidth="120"/>
+            <TableColumn fx:id="colTotal" text="Total" prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Label fx:id="labelTotalHarga" text="Rp 0" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+    </HBox>
+
+    <Separator/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnBatal" text="Batal" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+        <Button fx:id="btnSimpan" text="Simpan" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    </HBox>
+
+</VBox>

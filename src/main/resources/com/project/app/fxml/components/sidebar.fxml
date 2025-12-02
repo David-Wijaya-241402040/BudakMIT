@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="290.0" style="-fx-background-color: #1B4332;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.SidebarController">
+   <children>
+      <VBox layoutX="115.0" layoutY="93.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#goHome" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/home-sidebar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnPenawaran" mnemonicParsing="false" onAction="#goPenawaran" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Penawaran" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/penawaran-sidebar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnTagihan" mnemonicParsing="false" onAction="#goTagihan" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Tagihan" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/tagihan-sidebar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnSparepart" mnemonicParsing="false" onAction="#goSparepart" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Sparepart" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/sparepart-sidebar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <AnchorPane prefHeight="87.0" prefWidth="290.0">
+               <children>
+                  <Button fx:id="btnLogoutAdmin" mnemonicParsing="false" onAction="#goLogout" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Logout" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Georgia" size="24.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/logout-sidebar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnManageAccount" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goManageAccount" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Manage Accounts" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Georgia" size="24.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/manageaccount-sidebar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <Button fx:id="btnLogoutOwner" mnemonicParsing="false" onAction="#goLogout" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/logout-sidebar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
