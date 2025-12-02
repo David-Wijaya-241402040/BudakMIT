@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.java.com.project.app.dao.PenawaranDAO;
@@ -25,10 +26,9 @@ public class PenawaranController implements Initializable, MainInjectable {
 
     private MainController mainController;
     @FXML private VBox vboxSuratContainer;
+    @FXML private TextField searchField;
     private static Parent viewListPenawaran; // tampilan list SP awal
     private AddNewPenawaranController addNewPenawaranController;
-
-
 
     private final PenawaranDAO dao = new PenawaranDAO();
 
@@ -44,10 +44,9 @@ public class PenawaranController implements Initializable, MainInjectable {
         } catch (Exception e) {
             System.err.println("❌ Error load SP: " + e.getMessage());
         }
-
     }
 
-    private void loadSP() throws SQLException {
+    public void loadSP() throws SQLException {
         Map<String, PenawaranModel.SPItem> spMap = dao.loadSP();
 
         vboxSuratContainer.getChildren().clear();
@@ -214,10 +213,55 @@ public class PenawaranController implements Initializable, MainInjectable {
         return ap;
     }
 
-
-
-
     private String formatRupiah(double value) {
         return String.format("%,.0f", value).replace(",", ".");
+    }
+
+    @FXML
+    public void goAdd() {
+        mainController.handleAddPenawaran();
+    }
+
+
+    @FXML
+    public void goSearch() {
+        String keyword = searchField.getText().trim();
+
+        if (keyword.isEmpty()) {
+            try {
+                loadSP();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
+        try {
+            Map<String, PenawaranModel.SPItem> result = dao.searchSP(keyword);
+
+            vboxSuratContainer.getChildren().clear();
+
+            if (result.isEmpty()) {
+                Label lbl = new Label("Tidak ada hasil untuk: " + keyword);
+                lbl.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px; -fx-text-fill: gray;");
+                vboxSuratContainer.getChildren().add(lbl);
+                return;
+            }
+
+            for (PenawaranModel.SPItem sp : result.values()) {
+                vboxSuratContainer.getChildren().add(createSPPane(sp));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goRefresh() {
+        try {
+            loadSP();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -15,10 +15,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="popupRoot" prefHeight="1000.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.45);" stylesheets="@../../css/salesoverview_popup.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.ListPerusahaanPopupController">
+<AnchorPane fx:id="popupRoot" prefHeight="1000.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.45);" stylesheets="@../../css/salesoverview_popup.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.CreatePenawaranPopupController">
 
     <children>
-        <VBox alignment="TOP_CENTER" layoutX="67.0" layoutY="165.0" prefHeight="669.0" prefWidth="1272.0" spacing="20.0" style="-fx-background-color: #f6f6f6; -fx-padding: 25; -fx-background-radius: 12;" AnchorPane.bottomAnchor="165.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="165.0">
+        <VBox alignment="TOP_CENTER" layoutX="67.0" layoutY="165.0" prefHeight="613.0" prefWidth="1272.0" spacing="20.0" style="-fx-background-color: #f6f6f6; -fx-padding: 25; -fx-background-radius: 12;" AnchorPane.bottomAnchor="193.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="193.0">
          <children>
             <HBox alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="1202.0">
                <children>
@@ -36,7 +36,7 @@
                         </Text>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="52.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="btnBack" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="52.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="46.0" fitWidth="50.0" opacity="0.61" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -47,7 +47,7 @@
                   </Button>
                </children>
             </HBox>
-            <VBox prefHeight="547.0" prefWidth="1222.0" spacing="20.0">
+            <VBox prefHeight="489.0" prefWidth="1222.0" spacing="20.0">
                <children>
                   <HBox prefHeight="490.0" prefWidth="1222.0" spacing="20.0">
                      <children>
@@ -76,7 +76,7 @@
                                                       <Font name="Georgia" size="15.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField prefHeight="31.0" prefWidth="239.0" />
+                                                <TextField fx:id="noSPField" prefHeight="31.0" prefWidth="239.0" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="357.0" spacing="10.0">
@@ -86,7 +86,7 @@
                                                       <Font name="Georgia" size="15.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField prefHeight="31.0" prefWidth="239.0" />
+                                                <TextField fx:id="idCompanyField" prefHeight="31.0" prefWidth="239.0" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="357.0" spacing="10.0">
@@ -96,7 +96,7 @@
                                                       <Font name="Georgia" size="15.0" />
                                                    </font>
                                                 </Text>
-                                                <DatePicker prefHeight="32.0" prefWidth="241.0" />
+                                                <DatePicker fx:id="dateSP" prefHeight="32.0" prefWidth="241.0" />
                                              </children>
                                           </HBox>
                                           <VBox prefHeight="180.0" prefWidth="376.0" spacing="10.0">
@@ -106,12 +106,12 @@
                                                       <Font name="Georgia" size="15.0" />
                                                    </font>
                                                 </Text>
-                                                <TextArea prefHeight="200.0" prefWidth="200.0" />
+                                                <TextArea fx:id="perihalArea" prefHeight="200.0" prefWidth="200.0" />
                                              </children>
                                           </VBox>
                                           <HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="357.0">
                                              <children>
-                                                <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="83.0" style="-fx-background-color: black; -fx-background-radius: 5;" text="Add" textFill="WHITE">
+                                                <Button fx:id="btnAdd" graphicTextGap="10.0" mnemonicParsing="false" onAction="#addSuratPenawaran" prefHeight="32.0" prefWidth="83.0" style="-fx-background-color: black; -fx-background-radius: 5;" text="Add" textFill="WHITE">
                                                    <graphic>
                                                       <ImageView fitHeight="83.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -141,7 +141,7 @@
                                                       <Font name="Georgia" size="15.0" />
                                                    </font>
                                                 </TextField>
-                                                <Button fx:id="btnSearch" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSearch" prefHeight="25.0" prefWidth="35.0" style="-fx-background-color: white; -fx-border-color: white;">
+                                                <Button fx:id="btnSearch" contentDisplay="CENTER" mnemonicParsing="false" onAction="#searchCompany" prefHeight="25.0" prefWidth="35.0" style="-fx-background-color: white; -fx-border-color: white;">
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -156,12 +156,12 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <TableView prefHeight="442.0" prefWidth="790.0">
+                              <TableView fx:id="tableCompany" onMouseClicked="#selectCompany" prefHeight="442.0" prefWidth="790.0">
                                 <columns>
-                                    <TableColumn prefWidth="98.0" text="ID Perusahaan" />
-                                  <TableColumn prefWidth="300.0" text="Nama Perusahaan" />
-                                    <TableColumn prefWidth="185.0" text="No.Telp Perusahaan" />
-                                    <TableColumn prefWidth="212.0" text="Email Perusahaan" />
+                                    <TableColumn fx:id="colIdCompany" prefWidth="98.0" text="ID Perusahaan" />
+                                  <TableColumn fx:id="colNamaCompany" prefWidth="300.0" text="Nama Perusahaan" />
+                                    <TableColumn fx:id="colTelpCompany" prefWidth="185.0" text="No.Telp Perusahaan" />
+                                    <TableColumn fx:id="colEmailCompany" prefWidth="212.0" text="Email Perusahaan" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -169,19 +169,6 @@
                               </TableView>
                            </children>
                         </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_RIGHT" prefHeight="39.0" prefWidth="1221.0">
-                     <children>
-                        <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="87.0" text="Save">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/save-adddetailpenawaran.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
                      </children>
                   </HBox>
                </children>

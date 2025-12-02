@@ -51,12 +51,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" layoutX="4.0" prefHeight="34.0" prefWidth="643.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0">
                                        <children>
-                                          <TextField prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
+                                          <TextField fx:id="searchField" prefHeight="31.0" prefWidth="486.0" promptText="Search" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
                                              <font>
                                                 <Font name="Georgia" size="15.0" />
                                              </font>
                                           </TextField>
-                                          <Button mnemonicParsing="false" prefHeight="13.0" prefWidth="41.0" style="-fx-background-color: white; -fx-border-color: #C8C8C8; -fx-border-width: 0 0 0 1;">
+                                          <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#goSearch" prefHeight="13.0" prefWidth="41.0" style="-fx-background-color: white; -fx-border-color: #C8C8C8; -fx-border-width: 0 0 0 1;">
                                              <graphic>
                                                 <ImageView fitHeight="23.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -71,11 +71,23 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="207.0" text="Tambah Penawaran">
+                        <Button fx:id="btnAddPenawaran" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goAdd" prefHeight="36.0" prefWidth="207.0" text="Tambah Penawaran">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../images/plus-penawaran.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Georgia" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnRefresh" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="36.0" prefWidth="130.0" text="Refresh">
+                           <graphic>
+                              <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/refresh-manageaccount.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -96,14 +108,9 @@
                               </Text>
                            </children>
                         </HBox>
-                         <ScrollPane prefHeight="842.0" prefWidth="1070.0"
-                                     fitToWidth="true"
-                                     style="-fx-border-width: 1 0 0 0; -fx-border-color: #c8c8c8; -fx-background-color: transparent;">
+                         <ScrollPane fitToWidth="true" prefHeight="842.0" prefWidth="1070.0" style="-fx-border-width: 1 0 0 0; -fx-border-color: #c8c8c8; -fx-background-color: transparent;">
                              <content>
-                                 <VBox fx:id="vboxSuratContainer"
-                                       spacing="20"
-                                       prefWidth="1055.0"
-                                       style="-fx-padding: 10;" />
+                                 <VBox fx:id="vboxSuratContainer" prefWidth="1055.0" spacing="20" style="-fx-padding: 10;" />
                              </content>
                          </ScrollPane>
 

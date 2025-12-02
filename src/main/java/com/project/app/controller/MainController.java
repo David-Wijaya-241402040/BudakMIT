@@ -24,6 +24,8 @@ public class MainController implements SharedControllerProvider {
     @FXML private StackPane rootPane;
     private SparepartController sparepartController;
     private TagihanController tagihanController;
+    private CreatePenawaranPopupController activePenawaranPopup;
+
 
     @FXML public void initialize() {
         sidebarController.setMainController(this);
@@ -48,6 +50,14 @@ public class MainController implements SharedControllerProvider {
     @Override
     public TagihanController getTagihanController() {
         return tagihanController;
+    }
+
+    @Override
+    public void setActivePenawaranPopup(CreatePenawaranPopupController controller) {this.activePenawaranPopup = controller;}
+
+    @Override
+    public CreatePenawaranPopupController getPenawaranPopupController() {
+        return activePenawaranPopup;
     }
 
     public void loadPage(String page){
@@ -196,6 +206,51 @@ public class MainController implements SharedControllerProvider {
         }
     }
 
+    public void handleAddPenawaran() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createsuratpenawaran_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreatePenawaranPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleAddCompany() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createperusahaan_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreatePerusahaanPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            // ❗ PASANG CALLBACK KE POPUP PENAWARAN AKTIF
+            CreatePenawaranPopupController activePenawaranPopup = getPenawaranPopupController();
+            if (activePenawaranPopup != null) {
+                popupController.setOnCompanyAdded(activePenawaranPopup::loadCompanies);
+            }
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     void showAlert(String title, String msg) {

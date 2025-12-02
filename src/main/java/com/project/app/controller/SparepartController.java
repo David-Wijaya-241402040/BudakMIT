@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.dao.SparepartDAO;
 import main.java.com.project.app.model.SparepartModel;
+import main.java.com.project.app.session.Session;
 
 public class SparepartController implements MainInjectable {
     private MainController mainController;
@@ -39,6 +40,12 @@ public class SparepartController implements MainInjectable {
 
     @FXML
     public void initialize() {
+        String role = Session.currentUser.getRoles();
+        if(role.equals("staff")) {
+            btnDelete.setVisible(false);
+            btnAdd.setVisible(false);
+            btnUpdate.setVisible(false);
+        }
         dao = new SparepartDAO(DBConnection.getConnection());
 
         colID.setCellValueFactory(v -> new javafx.beans.property.SimpleIntegerProperty(v.getValue().getComponentId()).asObject());
