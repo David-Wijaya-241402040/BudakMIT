@@ -5,7 +5,6 @@ import main.java.com.project.app.model.PenawaranModel;
 
 import java.sql.*;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PenawaranDAO {
@@ -20,6 +19,7 @@ public class PenawaranDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
+                int spId = rs.getInt("sp_id"); // 🔥 AMBIL SP ID DARI VIEW
                 String noSP = rs.getString("no_sp");
                 String perusahaan = rs.getString("nama_perusahaan");
                 String pembuat = rs.getString("nama_pembuat");
@@ -30,8 +30,13 @@ public class PenawaranDAO {
                 String spesifikasi = rs.getString("spesifikasi_mesin");
                 double harga = rs.getDouble("harga_aktual");
 
+                // jika belum ada → buat SPItem baru
                 spMap.putIfAbsent(noSP, new PenawaranModel.SPItem(noSP, perusahaan, pembuat));
 
+                // SET SP ID BIAR GA 0, harus masuk di tiap iterasi biar selalu update object yang benar
+                spMap.get(noSP).sp_id = spId; // ✅ SEKARANG NILAI INI AKAN TERSIMPAN
+
+                // masukin job detail
                 if (jobId > 0 && pekerjaan != null) {
                     spMap.get(noSP).jobs.add(
                             new PenawaranModel.JobDetail(jobId, pekerjaan, namaMesin, spesifikasi, harga)
@@ -42,4 +47,5 @@ public class PenawaranDAO {
 
         return spMap;
     }
+
 }

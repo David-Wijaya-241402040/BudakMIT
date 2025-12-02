@@ -96,11 +96,17 @@
                               </Text>
                            </children>
                         </HBox>
-                        <ScrollPane prefHeight="842.0" prefWidth="1070.0" style="-fx-border-width: 1 0 0 0; -fx-border-color: #c8c8c8; -fx-background-color: transparent;">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="797.0" prefWidth="1055.0" />
-                          </content>
-                        </ScrollPane>
+                         <ScrollPane prefHeight="842.0" prefWidth="1070.0"
+                                     fitToWidth="true"
+                                     style="-fx-border-width: 1 0 0 0; -fx-border-color: #c8c8c8; -fx-background-color: transparent;">
+                             <content>
+                                 <VBox fx:id="vboxSuratContainer"
+                                       spacing="20"
+                                       prefWidth="1055.0"
+                                       style="-fx-padding: 10;" />
+                             </content>
+                         </ScrollPane>
+
                      </children>
                   </VBox>
                </children>

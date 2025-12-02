@@ -6,6 +6,7 @@ import java.util.List;
 public class PenawaranModel {
 
     public static class SPItem {
+        public  int sp_id;
         public String noSP, perusahaan, pembuat;
         public List<JobDetail> jobs = new ArrayList<>();
 
@@ -29,6 +30,36 @@ public class PenawaranModel {
             this.nama_mesin = namaMesin;
             this.spesifikasi_mesin = spesifikasiMesin;
             this.harga = harga;
+        }
+    }
+
+    public static class SPJobComponent {
+        public int spId;
+        public String perihal;
+        public String tanggal;
+        public String namaPerusahaan;
+        public int jobId;
+        public String namaPekerjaan;
+        public String namaMesin;
+        public String spesifikasiMesin;
+        public int componentId;
+        public String namaComponent;
+        public double hargaAcuan;
+
+        public SPJobComponent(int spId, String perihal, String tanggal, String namaPerusahaan,
+                              int jobId, String namaPekerjaan, String namaMesin, String spesifikasiMesin,
+                              int componentId, String namaComponent, double hargaAcuan) {
+            this.spId = spId;
+            this.perihal = perihal;
+            this.tanggal = tanggal;
+            this.namaPerusahaan = namaPerusahaan;
+            this.jobId = jobId;
+            this.namaPekerjaan = namaPekerjaan;
+            this.namaMesin = namaMesin;
+            this.spesifikasiMesin = spesifikasiMesin;
+            this.componentId = componentId;
+            this.namaComponent = namaComponent;
+            this.hargaAcuan = hargaAcuan;
         }
     }
 
