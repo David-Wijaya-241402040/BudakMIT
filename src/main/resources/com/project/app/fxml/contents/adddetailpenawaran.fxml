@@ -16,334 +16,334 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="1000.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.AddDetailPenawaranController">
-   <children>
-      <VBox layoutX="255.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-         <children>
-            <HBox prefHeight="105.0" prefWidth="1070.0">
-               <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="1070.0" spacing="20.0" style="-fx-border-color: BLACK; -fx-border-width: 0 0 3 0;">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
-                           <font>
-                              <Font name="Georgia Bold" size="44.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </VBox>
-               </children>
-            </HBox>
-            <VBox prefHeight="883.0" prefWidth="1070.0" spacing="10.0">
-               <children>
-                  <VBox prefHeight="834.0" prefWidth="1070.0" spacing="10.0">
-                     <children>
-                        <HBox prefHeight="42.0" prefWidth="1070.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rincian Pekerjaan &amp; Sparepart">
-                                 <font>
-                                    <Font name="Georgia" size="20.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="60.0" prefWidth="1070.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Pekerjaan :">
-                                 <font>
-                                    <Font name="Georgia" size="15.0" />
-                                 </font>
-                              </Text>
-                              <HBox prefHeight="46.0" prefWidth="1070.0">
-                                 <children>
-                                    <TextField prefHeight="34.0" prefWidth="1179.0" />
-                                 </children>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
+    <children>
+        <VBox layoutX="255.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+                <HBox prefHeight="105.0" prefWidth="1070.0">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="1070.0" spacing="20.0" style="-fx-border-color: BLACK; -fx-border-width: 0 0 3 0;">
+                            <children>
+                                <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
+                                    <font>
+                                        <Font name="Georgia Bold" size="44.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets />
+                                    </VBox.margin>
+                                </Text>
+                            </children>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
                         </VBox>
-                        <VBox prefHeight="60.0" prefWidth="1070.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Mesin :">
-                                 <font>
-                                    <Font name="Georgia" size="15.0" />
-                                 </font>
-                              </Text>
-                              <HBox prefHeight="46.0" prefWidth="1070.0">
-                                 <children>
-                                    <TextField prefHeight="34.0" prefWidth="1136.0" />
-                                 </children>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="60.0" prefWidth="1070.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spesifikasi Mesin :">
-                                 <font>
-                                    <Font name="Georgia" size="15.0" />
-                                 </font>
-                              </Text>
-                              <HBox prefHeight="46.0" prefWidth="1070.0">
-                                 <children>
-                                    <TextField prefHeight="34.0" prefWidth="1329.0" />
-                                 </children>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="171.0" prefWidth="1070.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deskripsi :">
-                                 <font>
-                                    <Font name="Georgia" size="15.0" />
-                                 </font>
-                              </Text>
-                              <HBox prefHeight="155.0" prefWidth="1070.0">
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                                 <children>
-                                    <TextArea prefHeight="111.0" prefWidth="1070.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <HBox prefHeight="344.0" prefWidth="1070.0" spacing="10.0">
-                           <children>
-                              <AnchorPane prefHeight="422.0" prefWidth="345.0" style="-fx-background-color: white; -fx-background-radius: 2 2 2 2; -fx-border-color: #c8c8c8; -fx-border-radius: 2 2 2 2;">
-                                 <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="322.0" style="-fx-border-color: #c8c8c8; -fx-border-width: 0 0 1 0;">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Detail Komponen &amp; Pekerjaan">
-                                                   <font>
-                                                      <Font name="Georgia" size="16.0" />
-                                                   </font>
-                                                </Text>
-                                             </children>
-                                          </HBox>
-                                          <VBox prefHeight="241.0" prefWidth="322.0" spacing="10.0">
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
-                                                   <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Item :">
-                                                         <font>
-                                                            <Font name="Georgia" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <ComboBox prefHeight="25.0" prefWidth="246.0" />
-                                                   </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
-                                                   <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Qty :" wrappingWidth="66.623046875">
-                                                         <font>
-                                                            <Font name="Georgia" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                      <TextField prefHeight="25.0" prefWidth="243.0" />
-                                                   </children>
-                                                </HBox>
-                                                <VBox prefHeight="68.0" prefWidth="322.0">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harga Modal :" wrappingWidth="81.794921875">
-                                                               <font>
-                                                                  <Font name="Georgia" size="12.0" />
-                                                               </font>
-                                                            </Text>
-                                                            <TextField prefHeight="25.0" prefWidth="246.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <Text fill="#9a9a9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Harga modal adalah harga awal yang dikeluarkan untuk membeli sebuah item." wrappingWidth="320.6061096191406">
-                                                         <font>
-                                                            <Font name="Georgia" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                   </children>
+                    </children>
+                </HBox>
+                <VBox prefHeight="883.0" prefWidth="1070.0" spacing="10.0">
+                    <children>
+                        <VBox prefHeight="834.0" prefWidth="1070.0" spacing="10.0">
+                            <children>
+                                <HBox prefHeight="42.0" prefWidth="1070.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rincian Pekerjaan &amp; Sparepart">
+                                            <font>
+                                                <Font name="Georgia" size="20.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                </HBox>
+                                <VBox prefHeight="60.0" prefWidth="1070.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Pekerjaan :">
+                                            <font>
+                                                <Font name="Georgia" size="15.0" />
+                                            </font>
+                                        </Text>
+                                        <HBox prefHeight="46.0" prefWidth="1070.0">
+                                            <children>
+                                                <TextField fx:id="namaPekerjaanField" prefHeight="34.0" prefWidth="1179.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="60.0" prefWidth="1070.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Mesin :">
+                                            <font>
+                                                <Font name="Georgia" size="15.0" />
+                                            </font>
+                                        </Text>
+                                        <HBox prefHeight="46.0" prefWidth="1070.0">
+                                            <children>
+                                                <TextField fx:id="namaMesinField" prefHeight="34.0" prefWidth="1136.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="60.0" prefWidth="1070.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spesifikasi Mesin :">
+                                            <font>
+                                                <Font name="Georgia" size="15.0" />
+                                            </font>
+                                        </Text>
+                                        <HBox prefHeight="46.0" prefWidth="1070.0">
+                                            <children>
+                                                <TextField fx:id="spesifikasiMesinField" prefHeight="34.0" prefWidth="1329.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <VBox prefHeight="171.0" prefWidth="1070.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Deskripsi :">
+                                            <font>
+                                                <Font name="Georgia" size="15.0" />
+                                            </font>
+                                        </Text>
+                                        <HBox prefHeight="155.0" prefWidth="1070.0">
+                                            <padding>
+                                                <Insets top="5.0" />
+                                            </padding>
+                                            <children>
+                                                <TextArea fx:id="deskripsiArea" prefHeight="111.0" prefWidth="1070.0" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <HBox prefHeight="344.0" prefWidth="1070.0" spacing="10.0">
+                                    <children>
+                                        <AnchorPane prefHeight="422.0" prefWidth="345.0" style="-fx-background-color: white; -fx-background-radius: 2 2 2 2; -fx-border-color: #c8c8c8; -fx-border-radius: 2 2 2 2;">
+                                            <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="322.0" style="-fx-border-color: #c8c8c8; -fx-border-width: 0 0 1 0;">
+                                                            <children>
+                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Detail Komponen &amp; Pekerjaan">
+                                                                    <font>
+                                                                        <Font name="Georgia" size="16.0" />
+                                                                    </font>
+                                                                </Text>
+                                                            </children>
+                                                        </HBox>
+                                                        <VBox prefHeight="241.0" prefWidth="322.0" spacing="10.0">
+                                                            <children>
+                                                                <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
+                                                                    <children>
+                                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Item :">
+                                                                            <font>
+                                                                                <Font name="Georgia" size="12.0" />
+                                                                            </font>
+                                                                        </Text>
+                                                                        <ComboBox fx:id="namaItemComboBox" prefHeight="25.0" prefWidth="246.0" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
+                                                                    <children>
+                                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Qty :" wrappingWidth="66.623046875">
+                                                                            <font>
+                                                                                <Font name="Georgia" size="12.0" />
+                                                                            </font>
+                                                                        </Text>
+                                                                        <TextField fx:id="qtyField" prefHeight="25.0" prefWidth="243.0" />
+                                                                    </children>
+                                                                </HBox>
+                                                                <VBox prefHeight="68.0" prefWidth="322.0">
+                                                                    <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
+                                                                            <children>
+                                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harga Modal :" wrappingWidth="81.794921875">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="12.0" />
+                                                                                    </font>
+                                                                                </Text>
+                                                                                <TextField fx:id="hargaModalField" prefHeight="25.0" prefWidth="246.0" />
+                                                                            </children>
+                                                                        </HBox>
+                                                                        <Text fill="#9a9a9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Harga modal adalah harga awal yang dikeluarkan untuk membeli sebuah item." wrappingWidth="320.6061096191406">
+                                                                            <font>
+                                                                                <Font name="Georgia" size="12.0" />
+                                                                            </font>
+                                                                        </Text>
+                                                                    </children>
+                                                                </VBox>
+                                                                <VBox prefHeight="72.0" prefWidth="322.0">
+                                                                    <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
+                                                                            <children>
+                                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harga Aktual :" wrappingWidth="81.044921875">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="12.0" />
+                                                                                    </font>
+                                                                                </Text>
+                                                                                <TextField fx:id="hargaAktualField" prefHeight="25.0" prefWidth="246.0" />
+                                                                            </children>
+                                                                        </HBox>
+                                                                        <Text fill="#9a9a9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Harga aktual adalah nilai total yang terbentuk setelah harga modal ditambahkan berbagai biaya pendukung" wrappingWidth="321.439453125">
+                                                                            <font>
+                                                                                <Font name="Georgia" size="12.0" />
+                                                                            </font>
+                                                                        </Text>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </VBox>
+                                                        <HBox alignment="TOP_RIGHT" prefHeight="24.0" prefWidth="322.0">
+                                                            <children>
+                                                                <Button fx:id="addItemButton" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Add">
+                                                                    <graphic>
+                                                                        <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                                                            <image>
+                                                                                <Image url="@../../images/save-adddetailpenawaran.png" />
+                                                                            </image>
+                                                                        </ImageView>
+                                                                    </graphic>
+                                                                    <font>
+                                                                        <Font name="Georgia" size="12.0" />
+                                                                    </font>
+                                                                </Button>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
                                                 </VBox>
-                                                <VBox prefHeight="72.0" prefWidth="322.0">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Harga Aktual :" wrappingWidth="81.044921875">
-                                                               <font>
-                                                                  <Font name="Georgia" size="12.0" />
-                                                               </font>
-                                                            </Text>
-                                                            <TextField prefHeight="25.0" prefWidth="246.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <Text fill="#9a9a9a" strokeType="OUTSIDE" strokeWidth="0.0" text="Harga aktual adalah nilai total yang terbentuk setelah harga modal ditambahkan berbagai biaya pendukung" wrappingWidth="321.439453125">
-                                                         <font>
-                                                            <Font name="Georgia" size="12.0" />
-                                                         </font>
-                                                      </Text>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </VBox>
-                                          <HBox alignment="TOP_RIGHT" prefHeight="24.0" prefWidth="322.0">
-                                             <children>
-                                                <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Add">
-                                                   <graphic>
-                                                      <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../../images/save-adddetailpenawaran.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </graphic>
-                                                   <font>
-                                                      <Font name="Georgia" size="12.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                              <TableView prefHeight="422.0" prefWidth="392.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="Item" />
-                                  <TableColumn prefWidth="75.0" text="Qty" />
-                                    <TableColumn prefWidth="75.0" text="Harga" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <VBox>
-                                 <children>
-                                    <AnchorPane prefHeight="387.0" prefWidth="315.0" style="-fx-background-color: white; -fx-background-radius: 2 2 2 2; -fx-border-color: #c8c8c8; -fx-border-radius: 2 2 2 2;">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                                             <children>
-                                                <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="322.0" style="-fx-border-color: #c8c8c8; -fx-border-width: 0 0 1 0;">
-                                                   <children>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Keterangan Surat">
-                                                         <font>
-                                                            <Font name="Georgia" size="16.0" />
-                                                         </font>
-                                                      </Text>
-                                                   </children>
-                                                </HBox>
-                                                <VBox prefHeight="198.0" prefWidth="293.0" spacing="10.0" style="-fx-border-color: #c8c8c8; -fx-border-width: 0 0 1 0;">
-                                                   <children>
-                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin ID :" wrappingWidth="122.46160888671875">
-                                                               <font>
-                                                                  <Font name="Georgia" size="12.0" />
-                                                               </font>
-                                                            </Text>
-                                                            <TextField prefHeight="25.0" prefWidth="246.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. Surat :" wrappingWidth="107.18756103515625">
-                                                               <font>
-                                                                  <Font name="Georgia" size="12.0" />
-                                                               </font>
-                                                            </Text>
-                                                            <TextField prefHeight="25.0" prefWidth="198.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Perusahaan :" wrappingWidth="107.28973388671875">
-                                                               <font>
-                                                                  <Font name="Georgia" size="12.0" />
-                                                               </font>
-                                                            </Text>
-                                                            <TextField prefHeight="25.0" prefWidth="243.0" />
-                                                         </children>
-                                                      </HBox>
-                                                      <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
-                                                         <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal :" wrappingWidth="122.46160888671875">
-                                                               <font>
-                                                                  <Font name="Georgia" size="12.0" />
-                                                               </font>
-                                                            </Text>
-                                                            <TextField prefHeight="25.0" prefWidth="246.0" />
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
-                                                   <padding>
-                                                      <Insets top="15.0" />
-                                                   </padding>
-                                                </VBox>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total :" wrappingWidth="69.060302734375">
-                                                   <font>
-                                                      <Font name="Georgia" size="20.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets top="20.0" />
-                                                   </VBox.margin>
-                                                </Text>
-                                                <AnchorPane prefHeight="42.0" prefWidth="293.0">
-                                                   <children>
-                                                      <HBox layoutX="50.0" prefHeight="46.0" prefWidth="243.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <children>
-                                                            <TextField alignment="CENTER" prefHeight="48.0" prefWidth="261.0" style="-fx-background-color: transparent;" text="Rp8.000.000.000">
-                                                               <font>
-                                                                  <Font name="Georgia" size="26.0" />
-                                                               </font>
-                                                            </TextField>
-                                                         </children>
-                                                      </HBox>
-                                                   </children>
+                                            </children>
+                                        </AnchorPane>
+                                        <TableView fx:id="itemTableView" prefHeight="422.0" prefWidth="392.0">
+                                            <columns>
+                                                <TableColumn fx:id="itemColumn" prefWidth="75.0" text="Item" />
+                                                <TableColumn fx:id="qtyColumn" prefWidth="75.0" text="Qty" />
+                                                <TableColumn fx:id="hargaColumn" prefWidth="75.0" text="Harga" />
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                            </columnResizePolicy>
+                                        </TableView>
+                                        <VBox>
+                                            <children>
+                                                <AnchorPane prefHeight="387.0" prefWidth="315.0" style="-fx-background-color: white; -fx-background-radius: 2 2 2 2; -fx-border-color: #c8c8c8; -fx-border-radius: 2 2 2 2;">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                            <children>
+                                                                <HBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="322.0" style="-fx-border-color: #c8c8c8; -fx-border-width: 0 0 1 0;">
+                                                                    <children>
+                                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Keterangan Surat">
+                                                                            <font>
+                                                                                <Font name="Georgia" size="16.0" />
+                                                                            </font>
+                                                                        </Text>
+                                                                    </children>
+                                                                </HBox>
+                                                                <VBox prefHeight="198.0" prefWidth="293.0" spacing="10.0" style="-fx-border-color: #c8c8c8; -fx-border-width: 0 0 1 0;">
+                                                                    <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
+                                                                            <children>
+                                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin ID :" wrappingWidth="122.46160888671875">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="12.0" />
+                                                                                    </font>
+                                                                                </Text>
+                                                                                <TextField fx:id="adminIdField" prefHeight="25.0" prefWidth="246.0" style="-fx-background-color: transparent;" />
+                                                                            </children>
+                                                                        </HBox>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
+                                                                            <children>
+                                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="No. Surat :" wrappingWidth="107.18756103515625">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="12.0" />
+                                                                                    </font>
+                                                                                </Text>
+                                                                                <TextField fx:id="noSuratField" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: transparent;" />
+                                                                            </children>
+                                                                        </HBox>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0" spacing="15.0">
+                                                                            <children>
+                                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Perusahaan :" wrappingWidth="107.28973388671875">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="12.0" />
+                                                                                    </font>
+                                                                                </Text>
+                                                                                <TextField fx:id="namaPerusahaanField" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: transparent;" />
+                                                                            </children>
+                                                                        </HBox>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="322.0">
+                                                                            <children>
+                                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal :" wrappingWidth="122.46160888671875">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="12.0" />
+                                                                                    </font>
+                                                                                </Text>
+                                                                                <TextField fx:id="tanggalField" prefHeight="25.0" prefWidth="246.0" style="-fx-background-color: transparent;" />
+                                                                            </children>
+                                                                        </HBox>
+                                                                    </children>
+                                                                    <padding>
+                                                                        <Insets top="15.0" />
+                                                                    </padding>
+                                                                </VBox>
+                                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total :" wrappingWidth="69.060302734375">
+                                                                    <font>
+                                                                        <Font name="Georgia" size="20.0" />
+                                                                    </font>
+                                                                    <VBox.margin>
+                                                                        <Insets top="20.0" />
+                                                                    </VBox.margin>
+                                                                </Text>
+                                                                <AnchorPane prefHeight="42.0" prefWidth="293.0">
+                                                                    <children>
+                                                                        <HBox layoutX="50.0" prefHeight="46.0" prefWidth="243.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                            <children>
+                                                                                <TextField fx:id="totalHargaField" alignment="CENTER" prefHeight="48.0" prefWidth="261.0" style="-fx-background-color: transparent;" text="Rp0">
+                                                                                    <font>
+                                                                                        <Font name="Georgia" size="26.0" />
+                                                                                    </font>
+                                                                                </TextField>
+                                                                            </children>
+                                                                        </HBox>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
                                                 </AnchorPane>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="1070.0">
-                           <children>
-                              <Button graphicTextGap="10.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" text="Save">
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../images/save-adddetailpenawaran.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font name="Georgia" size="17.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </VBox>
-               </children>
-            </VBox>
-         </children>
-      </VBox>
-   </children>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="1070.0">
+                                    <children>
+                                        <Button fx:id="saveButton" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" text="Save">
+                                            <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../images/save-adddetailpenawaran.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                            <font>
+                                                <Font name="Georgia" size="17.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

@@ -27,16 +27,22 @@ public class SPDetailDAO {
             while (rs.next()) {
                 list.add(new PenawaranModel.SPJobComponent(
                         rs.getInt("sp_id"),
+                        rs.getString("no_sp"),
                         rs.getString("perihal"),
+                        rs.getString("user_id"),
                         rs.getString("tanggal_surat_penawaran"),
                         rs.getString("nama_perusahaan"),
                         rs.getInt("job_id"),
                         rs.getString("nama_pekerjaan"),
                         rs.getString("nama_mesin"),
                         rs.getString("spesifikasi_mesin"),
+                        rs.getString("deskripsi_pekerjaan"),
                         rs.getInt("component_id"),
                         rs.getString("nama_component"),
-                        rs.getDouble("harga_acuan")
+                        rs.getInt("qty"),
+                        rs.getDouble("harga_acuan"),
+                        rs.getDouble("harga_aktual"),
+                        rs.getDouble("harga_komponen")
                 ));
             }
 

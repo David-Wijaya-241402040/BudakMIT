@@ -31,7 +31,7 @@ public class PenawaranDAO {
                 double harga = rs.getDouble("harga_aktual");
 
                 // jika belum ada → buat SPItem baru
-                spMap.putIfAbsent(noSP, new PenawaranModel.SPItem(noSP, perusahaan, pembuat));
+                spMap.putIfAbsent(noSP, new PenawaranModel.SPItem(noSP, perusahaan));
 
                 // SET SP ID BIAR GA 0, harus masuk di tiap iterasi biar selalu update object yang benar
                 spMap.get(noSP).sp_id = spId; // ✅ SEKARANG NILAI INI AKAN TERSIMPAN
@@ -77,7 +77,7 @@ public class PenawaranDAO {
                     double harga = rs.getDouble("harga_aktual");
 
                     // kalau SP belum ada → buat
-                    spMap.putIfAbsent(noSP, new PenawaranModel.SPItem(noSP, perusahaan, pembuat));
+                    spMap.putIfAbsent(noSP, new PenawaranModel.SPItem(noSP, perusahaan));
 
                     // pastikan SP ID masuk
                     spMap.get(noSP).sp_id = spId;

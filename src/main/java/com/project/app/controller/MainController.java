@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import main.java.com.project.app.model.SparepartModel;
 import main.java.com.project.app.model.TagihanModel;
+import main.java.com.project.app.session.Session;
 
 import javax.swing.text.html.HTML;
 import java.io.IOException;
@@ -29,7 +30,12 @@ public class MainController implements SharedControllerProvider {
 
     @FXML public void initialize() {
         sidebarController.setMainController(this);
-        loadPage("home");
+        String role = Session.currentUser.getRoles();
+        if(role.equals("owner")) {
+            loadPage("home");
+        } else if (role.equals("staff")) {
+            loadPage("homestaff");
+        }
     }
 
     @Override
@@ -60,6 +66,13 @@ public class MainController implements SharedControllerProvider {
         return activePenawaranPopup;
     }
 
+    private int spIdBuffer = 0;
+
+    public void setSPIdBuffer(int spId) {
+        this.spIdBuffer = spId;
+    }
+
+
     public void loadPage(String page){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -78,6 +91,13 @@ public class MainController implements SharedControllerProvider {
                 this.setSparepartController((SparepartController) controller);
             } else if (controller instanceof TagihanController) {
                 this.setTagihanController((TagihanController) controller);
+            } else if (controller instanceof AddNewPenawaranController) {
+                ((AddNewPenawaranController) controller).setMainController(this);
+                ((AddNewPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+            } else if (controller instanceof AddDetailPenawaranController) {
+                ((AddDetailPenawaranController) controller).setMainController(this);
+                ((AddDetailPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+                System.out.println("✅ Passing spIdBuffer to AddDetailPenawaranController: " + spIdBuffer);
             }
 
             contentArea.getChildren().setAll(node);
