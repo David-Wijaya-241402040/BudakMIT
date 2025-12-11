@@ -12,8 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import jfx.incubator.scene.control.richtext.SelectionSegment;
 import main.java.com.project.app.dao.PenawaranDAO;
 import main.java.com.project.app.model.PenawaranModel;
+import main.java.com.project.app.session.Session;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +29,9 @@ public class PenawaranController implements Initializable, MainInjectable {
     private MainController mainController;
     @FXML private VBox vboxSuratContainer;
     @FXML private TextField searchField;
+    @FXML private Button btnRefresh;
+    @FXML private Button btnRefreshOwner;
+    @FXML private Button btnAddPenawaran;
     private static Parent viewListPenawaran; // tampilan list SP awal
     private AddNewPenawaranController addNewPenawaranController;
 
@@ -43,6 +48,23 @@ public class PenawaranController implements Initializable, MainInjectable {
             loadSP();
         } catch (Exception e) {
             System.err.println("❌ Error load SP: " + e.getMessage());
+        }
+
+        String role = Session.currentUser.getRoles();
+        if(role.equals("owner")) {
+            btnAddPenawaran.setDisable(true);
+            btnAddPenawaran.setVisible(false);
+            btnRefresh.setDisable(true);
+            btnRefresh.setVisible(false);
+            btnRefreshOwner.setVisible(true);
+            btnRefreshOwner.setDisable(false);
+        } else if (role.equals("staff")) {
+            btnAddPenawaran.setDisable(false);
+            btnAddPenawaran.setVisible(true);
+            btnRefresh.setDisable(false);
+            btnRefresh.setVisible(true);
+            btnRefreshOwner.setVisible(false);
+            btnRefreshOwner.setDisable(true);
         }
     }
 

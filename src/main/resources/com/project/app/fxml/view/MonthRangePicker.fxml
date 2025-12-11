@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="TOP_RIGHT" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.MonthRangePickerController">
+
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <Label text="Start Month" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <ComboBox fx:id="startMonth" prefWidth="140" promptText="Month" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <ComboBox fx:id="startYear" prefHeight="25.0" prefWidth="122.0" promptText="Year" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+    <Label text="End Month" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <ComboBox fx:id="endMonth" prefWidth="140" promptText="Month" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <ComboBox fx:id="endYear" prefHeight="25.0" prefWidth="122.0" promptText="Year" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+    <Button fx:id="btnApply" alignment="CENTER" prefHeight="25.0" prefWidth="61.0" text="Apply" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets />
+      </GridPane.margin></Button>
+    <Button fx:id="btnCancel" alignment="CENTER" text="Cancel" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets left="70.0" />
+      </GridPane.margin></Button>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

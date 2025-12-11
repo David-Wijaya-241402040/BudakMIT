@@ -2,6 +2,7 @@ package main.java.com.project.app.dao;
 
 import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.model.PenawaranModel;
+import main.java.com.project.app.session.Session;
 
 import java.sql.*;
 import java.util.LinkedHashMap;
@@ -10,7 +11,15 @@ import java.util.Map;
 public class PenawaranDAO {
 
     public Map<String, PenawaranModel.SPItem> loadSP() throws SQLException {
-        String sql = "SELECT * FROM view_surat_penawaran_detail ORDER BY sp_id ASC, job_id ASC";
+        int userId = Session.currentUser.getId();
+        String role = Session.currentUser.getRoles();
+        String sql = "";
+
+        if(role.equals("owner")) {
+            sql = "SELECT * FROM view_surat_penawaran_detail ORDER BY sp_id ASC, job_id ASC";
+        } else if (role.equals("staff")) {
+            sql = "SELECT * FROM view_surat_penawaran_detail WHERE user_id = " + userId +  " ORDER BY sp_id ASC, job_id ASC";
+        }
 
         Map<String, PenawaranModel.SPItem> spMap = new LinkedHashMap<>();
 
