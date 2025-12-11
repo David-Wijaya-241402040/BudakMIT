@@ -112,7 +112,7 @@
                               <Font name="Georgia" size="13.0" />
                            </font>
                         </Text>
-                        <Hyperlink text="Click Me!">
+                        <Hyperlink fx:id="goChangePass" text="Click Me!">
                            <font>
                               <Font name="Georgia" size="13.0" />
                            </font>
