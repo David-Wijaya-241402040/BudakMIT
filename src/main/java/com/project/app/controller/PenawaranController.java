@@ -90,7 +90,9 @@ public class PenawaranController implements Initializable, MainInjectable {
         Label lblPerusahaan = new Label("Perusahaan: " + (sp.perusahaan == null ? "-" : sp.perusahaan));
         lblPerusahaan.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
-        Label lblPembuat = new Label("Dibuat oleh: " + (sp.pembuat == null ? "-" : sp.pembuat));
+        String username = Session.currentUser.getNickname();
+
+        Label lblPembuat = new Label("Dibuat oleh: " + username);
         lblPembuat.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
         VBox jobContainer = new VBox(6);

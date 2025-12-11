@@ -145,9 +145,9 @@
                                           </HBox>
                                           <TableView fx:id="tableAktivitas" prefHeight="567.0" prefWidth="488.0">
                                             <columns>
-                                              <TableColumn fx:id="colAktivitas" prefWidth="139.0" text="Aktivitas" />
-                                                <TableColumn fx:id="colTgl" prefWidth="71.0" text="Tanggal" />
-                                                <TableColumn fx:id="colPukul" prefWidth="77.0" text="Pukul" />
+                                              <TableColumn fx:id="colAktivitas" prefWidth="380.0" text="Aktivitas" />
+                                                <TableColumn fx:id="colTgl" prefWidth="104.0" text="Tanggal" />
+                                                <TableColumn fx:id="colPukul" prefWidth="102.0" text="Pukul" />
                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

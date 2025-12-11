@@ -1,5 +1,7 @@
 package main.java.com.project.app.model;
 
+import main.java.com.project.app.session.Session;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class PenawaranModel {
         public SPItem(String noSP, String perusahaan) {
             this.noSP = noSP;
             this.perusahaan = perusahaan;
-            this.pembuat = pembuat;
+            this.pembuat = Session.currentUser.getNickname();
         }
     }
 

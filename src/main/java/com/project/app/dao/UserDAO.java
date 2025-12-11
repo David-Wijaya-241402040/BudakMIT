@@ -25,6 +25,7 @@ public class UserDAO implements UserDaoInterface {
             if (rs.next()){
                 return new UserModel(
                         rs.getInt("user_id"),
+                        rs.getString("nickname"),
                         rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("roles")

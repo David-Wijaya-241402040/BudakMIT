@@ -3,6 +3,7 @@ package main.java.com.project.app.config;
 import main.java.com.project.app.session.Session;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DBConnection {
@@ -26,7 +27,16 @@ public class DBConnection {
                     PASS = "owner.mit.pekan123";
                 }
             }
-            return DriverManager.getConnection(URL, USER, PASS);
+            Connection connection = DriverManager.getConnection(URL, USER, PASS);
+
+            if (Session.currentUser != null) {
+                try (PreparedStatement st = connection.prepareStatement("SET @current_user_id = ?")) {
+                    st.setInt(1, Session.currentUser.getId());
+                    st.execute();
+                }
+            }
+
+            return connection;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
