@@ -100,4 +100,17 @@ public class UserDAO implements UserDaoInterface {
         return false;
     }
 
+    public boolean updatePassword(int userId, String newHashedPassword, String newSalt) {
+        String sql = "UPDATE users SET password = ?, salt = ? WHERE user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, newHashedPassword);
+            stmt.setString(2, newSalt);
+            stmt.setInt(3, userId);
+            int rows = stmt.executeUpdate();
+            return rows > 0; // true kalo update sukses
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
