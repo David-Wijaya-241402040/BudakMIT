@@ -9,6 +9,10 @@ import javafx.scene.Parent;
 import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.dao.UserDAO;
 
+import java.security.MessageDigest;
+import java.util.Base64;
+import java.security.SecureRandom;
+
 public class CreateAccountPopupController implements MainInjectable {
     @FXML private AnchorPane popupRoot;
     @FXML private TextField usernameField;
@@ -47,7 +51,8 @@ public class CreateAccountPopupController implements MainInjectable {
 
         // Panggil DAO
         UserDAO userDAO = new UserDAO(DBConnection.getConnection());
-        boolean success = userDAO.addUser(username, email, noTelp, password);
+        String salt = userDAO.callSalt();
+        boolean success = userDAO.addUser(username, email, noTelp, password, salt);
 
         if(success) {
             System.out.println("User berhasil ditambahkan!");

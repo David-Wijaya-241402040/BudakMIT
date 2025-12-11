@@ -28,7 +28,15 @@ public class SidebarController {
     }
 
     @FXML private void goHome() {
-        mainController.loadPage("home");
+        if (Session.currentUser != null) {
+            String role = Session.currentUser.getRoles();
+
+            if (role.equals("owner")) {
+                mainController.loadPage("home");
+            } else if (role.equals("staff")) {
+                mainController.loadPage("homestaff");
+            }
+        }
     }
 
     @FXML private void goPenawaran() {

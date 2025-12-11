@@ -5,12 +5,15 @@ public class UserModel {
     private String nickname;
     private final String email;
     private final String password;
+    private String salt;
     private String roles;
 
-    public UserModel(int id, String email, String password, String roles) {
+    public UserModel(int id, String nickname, String email, String password, String salt, String roles) {
         this.id = id;
+        this.nickname = nickname;
         this.email = email;
         this.password = password;
+        this.salt = salt;
         this.roles = roles;
     }
 
@@ -27,6 +30,7 @@ public class UserModel {
     public String getPassword() {
         return password;
     }
+    public String getSalt() { return salt; };
     public String getRoles() {
         return roles;
     }

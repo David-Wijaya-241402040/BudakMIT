@@ -6,4 +6,7 @@ public interface SharedControllerProvider {
 
     void setTagihanController(TagihanController controller);
     TagihanController getTagihanController();
+
+    void setActivePenawaranPopup(CreatePenawaranPopupController controller);
+    CreatePenawaranPopupController getPenawaranPopupController();
 }

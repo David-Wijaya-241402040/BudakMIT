@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import main.java.com.project.app.model.SparepartModel;
 import main.java.com.project.app.model.TagihanModel;
+import main.java.com.project.app.session.Session;
 
 import javax.swing.text.html.HTML;
 import java.io.IOException;
@@ -24,10 +25,17 @@ public class MainController implements SharedControllerProvider {
     @FXML private StackPane rootPane;
     private SparepartController sparepartController;
     private TagihanController tagihanController;
+    private CreatePenawaranPopupController activePenawaranPopup;
+
 
     @FXML public void initialize() {
         sidebarController.setMainController(this);
-        loadPage("home");
+        String role = Session.currentUser.getRoles();
+        if(role.equals("owner")) {
+            loadPage("home");
+        } else if (role.equals("staff")) {
+            loadPage("homestaff");
+        }
     }
 
     @Override
@@ -50,6 +58,21 @@ public class MainController implements SharedControllerProvider {
         return tagihanController;
     }
 
+    @Override
+    public void setActivePenawaranPopup(CreatePenawaranPopupController controller) {this.activePenawaranPopup = controller;}
+
+    @Override
+    public CreatePenawaranPopupController getPenawaranPopupController() {
+        return activePenawaranPopup;
+    }
+
+    private int spIdBuffer = 0;
+
+    public void setSPIdBuffer(int spId) {
+        this.spIdBuffer = spId;
+    }
+
+
     public void loadPage(String page){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -68,6 +91,13 @@ public class MainController implements SharedControllerProvider {
                 this.setSparepartController((SparepartController) controller);
             } else if (controller instanceof TagihanController) {
                 this.setTagihanController((TagihanController) controller);
+            } else if (controller instanceof AddNewPenawaranController) {
+                ((AddNewPenawaranController) controller).setMainController(this);
+                ((AddNewPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+            } else if (controller instanceof AddDetailPenawaranController) {
+                ((AddDetailPenawaranController) controller).setMainController(this);
+                ((AddDetailPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+                System.out.println("✅ Passing spIdBuffer to AddDetailPenawaranController: " + spIdBuffer);
             }
 
             contentArea.getChildren().setAll(node);
@@ -196,6 +226,51 @@ public class MainController implements SharedControllerProvider {
         }
     }
 
+    public void handleAddPenawaran() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createsuratpenawaran_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreatePenawaranPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleAddCompany() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createperusahaan_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreatePerusahaanPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            // ❗ PASANG CALLBACK KE POPUP PENAWARAN AKTIF
+            CreatePenawaranPopupController activePenawaranPopup = getPenawaranPopupController();
+            if (activePenawaranPopup != null) {
+                popupController.setOnCompanyAdded(activePenawaranPopup::loadCompanies);
+            }
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     void showAlert(String title, String msg) {
