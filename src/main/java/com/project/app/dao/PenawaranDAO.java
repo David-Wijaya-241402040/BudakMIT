@@ -5,7 +5,9 @@ import main.java.com.project.app.model.PenawaranModel;
 import main.java.com.project.app.session.Session;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PenawaranDAO {
@@ -102,6 +104,70 @@ public class PenawaranDAO {
         }
 
         return spMap;
+    }
+
+    public boolean deleteSP(int spId) throws SQLException {
+        Connection conn = null;
+
+        try {
+            conn = DBConnection.getConnection();
+            conn.setAutoCommit(false);
+
+            // 1. Ambil job_id
+            List<Integer> jobIds = new ArrayList<>();
+            String getJobs = "SELECT job_id FROM jobs WHERE sp_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(getJobs)) {
+                ps.setInt(1, spId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        jobIds.add(rs.getInt("job_id"));
+                    }
+                }
+            }
+
+            // 2. Hapus detail_pekerjaan (PALING DALAM)
+            String deleteDetail = "DELETE FROM detail_pekerjaan WHERE job_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(deleteDetail)) {
+                for (int jobId : jobIds) {
+                    ps.setInt(1, jobId);
+                    ps.executeUpdate();
+                }
+            }
+
+            // 3. Hapus jobs
+            String deleteJobs = "DELETE FROM jobs WHERE sp_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(deleteJobs)) {
+                ps.setInt(1, spId);
+                ps.executeUpdate();
+            }
+
+            // 4. Hapus tagihan (FK LANGSUNG KE SP)
+            String deleteTagihan = "DELETE FROM tagihan WHERE sp_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(deleteTagihan)) {
+                ps.setInt(1, spId);
+                ps.executeUpdate();
+            }
+
+            // 5. BARU hapus surat_penawaran
+            int affected;
+            String deleteSP = "DELETE FROM surat_penawaran WHERE sp_id = ?";
+            try (PreparedStatement ps = conn.prepareStatement(deleteSP)) {
+                ps.setInt(1, spId);
+                affected = ps.executeUpdate();
+            }
+
+            conn.commit();
+            return affected > 0;
+
+        } catch (SQLException e) {
+            if (conn != null) conn.rollback();
+            throw e;
+        } finally {
+            if (conn != null) {
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package main.java.com.project.app.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,14 +8,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import jfx.incubator.scene.control.richtext.SelectionSegment;
 import main.java.com.project.app.dao.PenawaranDAO;
 import main.java.com.project.app.model.PenawaranModel;
+import main.java.com.project.app.pdfwriter.PdfExporter;
 import main.java.com.project.app.session.Session;
 
 import java.io.IOException;
@@ -228,12 +228,93 @@ public class PenawaranController implements Initializable, MainInjectable {
             mainController.loadPage("addnewpenawaran"); // baru pindah scene
         });
 
+        Button btnDelete = new Button("Delete Penawaran");
+        btnDelete.setStyle(
+                "-fx-font-family: Georgia; " +
+                        "-fx-font-size: 13px; " +
+                        "-fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b); " + // merah
+                        "-fx-text-fill: white; " +
+                        "-fx-background-radius: 8; " +
+                        "-fx-padding: 6 18 6 18; " +
+                        "-fx-border-color: #a93226; " +
+                        "-fx-border-width: 1.2; " +
+                        "-fx-border-radius: 8; " +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(192,57,43,0.4), 8, 0.3, 0, 2);"
+        );
 
 
-        // Set posisi tombol di kanan
-        AnchorPane.setTopAnchor(btnBuka, 45.0);
-        AnchorPane.setRightAnchor(btnBuka, 15.0);
-        ap.getChildren().add(btnBuka);
+        btnDelete.setOnMouseEntered(e -> btnDelete.setStyle(btnDelete.getStyle().replace("#c0392b", "#922b21")));
+        btnDelete.setOnMouseExited(e -> btnDelete.setStyle(btnDelete.getStyle().replace("#922b21", "#c0392b")));
+
+
+        btnDelete.setOnAction(e -> {
+            try {
+                boolean success = dao.deleteSP(sp.sp_id);
+                if(success){
+                    System.out.println("SP berhasil dihapus: " + sp.sp_id);
+                    showAlert("INFORMATION", "Surat Penawaran berhasil Dihapus");
+                    goRefresh(); // refresh list setelah delete
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                System.err.println("Gagal menghapus SP: " + sp.sp_id);
+            }
+        });
+
+
+        Button btnExport = new Button("Export Penawaran");
+        btnExport.setStyle(
+                "-fx-font-family: Georgia; " +
+                        "-fx-font-size: 13px; " +
+                        "-fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60); " + // hijau
+                        "-fx-text-fill: white; " +
+                        "-fx-background-radius: 8; " +
+                        "-fx-padding: 6 18 6 18; " +
+                        "-fx-border-color: #1e8449; " +
+                        "-fx-border-width: 1.2; " +
+                        "-fx-border-radius: 8; " +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(39,174,96,0.4), 8, 0.3, 0, 2);"
+        );
+
+
+        btnExport.setOnMouseEntered(e -> btnExport.setStyle(btnExport.getStyle().replace("#27ae60", "#1e8449")));
+        btnExport.setOnMouseExited(e -> btnExport.setStyle(btnExport.getStyle().replace("#1e8449", "#27ae60")));
+
+
+        btnExport.setOnAction(e -> {
+            System.out.println("Export SP ID: " + sp.sp_id);
+            try {
+                // Panggil PDF generator dengan SP ID yang diklik
+                PdfExporter.generatePdf(sp.sp_id);
+                showAlert("INFORMATION", "PDF berhasil di-export untuk SP ID: " + sp.sp_id);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showAlert("ERROR", "Gagal export PDF SP ID: " + sp.sp_id);
+            }
+        });
+
+
+        String role = Session.currentUser.getRoles();
+        VBox buttonBox = new VBox(6, btnBuka, btnExport, btnDelete);
+        buttonBox.setFillWidth(true); // otomatis button ikut lebar VBox
+        btnBuka.setMaxWidth(Double.MAX_VALUE);
+        btnDelete.setMaxWidth(Double.MAX_VALUE);
+        btnExport.setMaxWidth(Double.MAX_VALUE);
+
+        if(role.equals("owner")) {
+            btnDelete.setVisible(false);
+            btnDelete.setDisable(true);
+        } else if (role.equals("staff")) {
+            btnDelete.setVisible(true);
+            btnDelete.setDisable(false);
+        }
+
+        AnchorPane.setTopAnchor(buttonBox, 45.0);
+        AnchorPane.setRightAnchor(buttonBox, 15.0);
+
+        ap.getChildren().add(buttonBox);
         return ap;
     }
 
@@ -287,5 +368,13 @@ public class PenawaranController implements Initializable, MainInjectable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    void showAlert(String title, String msg) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
+            alert.setTitle(title);
+            alert.showAndWait();
+        });
     }
 }
