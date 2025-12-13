@@ -52,12 +52,14 @@ public class MainController implements SharedControllerProvider {
         return tagihanController;
     }
 
+    @Override
+    public void setAddNewPenawaranController(AddNewPenawaranController controller) {this.addNewPenawaranController = controller;}
 
-    private int spIdBuffer = 0;
+    @Override
+    public AddNewPenawaranController getAddNewPenawaranController() {return addNewPenawaranController;}
 
-    public void setSPIdBuffer(int spId) {
-        this.spIdBuffer = spId;
-    }
+    public String noSP;
+
 
     public void loadPage(String page){
         try {
@@ -77,10 +79,12 @@ public class MainController implements SharedControllerProvider {
                 this.setSparepartController((SparepartController) controller);
             } else if (controller instanceof TagihanController) {
                 this.setTagihanController((TagihanController) controller);
-            }
+            } else if (controller instanceof AddNewPenawaranController) {
+                this.setAddNewPenawaranController((AddNewPenawaranController) controller);
 
-            if (controller instanceof AddNewPenawaranController) {
-                ((AddNewPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+                // 🔥 TAMBAHAN BIAR noSP NYAMPE KE CONTROLLER YANG SEDANG DI-LOAD
+                AddNewPenawaranController ap = (AddNewPenawaranController) controller;
+                ap.setNoSP(this.noSP);
             }
 
             contentArea.getChildren().setAll(node);
@@ -209,8 +213,6 @@ public class MainController implements SharedControllerProvider {
         }
     }
 
-
-
     void showAlert(String title, String msg) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
@@ -219,5 +221,14 @@ public class MainController implements SharedControllerProvider {
         });
     }
 
+    public void loadDetailPenawaran(String page, String nosurat) {
+        this.noSP = nosurat;  // simpan dulu nilainya di MainController
+        System.out.println("Load Detail Penawaran NO SP: " + nosurat);
+        loadPage(page);       // nanti loadPage() yg ngirim ke AddNewController
+    }
 
+    public void setNoSP(String nosurat) {
+        this.noSP = nosurat;
+        System.out.println("📌 NO SP diterima di AddNewController: " + noSP);
+    }
 }

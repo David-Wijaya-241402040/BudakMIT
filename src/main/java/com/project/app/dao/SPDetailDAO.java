@@ -16,17 +16,18 @@ public class SPDetailDAO {
         this.conn = conn;
     }
 
-    public List<PenawaranModel.SPJobComponent> getDetailBySP(int spId) {
+    public List<PenawaranModel.SPJobComponent> getDetailBySP(String noSP) {
         List<PenawaranModel.SPJobComponent> list = new ArrayList<>();
-        String sql = "SELECT * FROM view_surat_penawaran_jobs_komponen WHERE sp_id = ?";
+        String sql = "SELECT * FROM view_surat_penawaran_jobs_komponen WHERE no_sp = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, spId);
+            ps.setString(1, noSP);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 list.add(new PenawaranModel.SPJobComponent(
                         rs.getInt("sp_id"),
+                        rs.getString("no_sp"),
                         rs.getString("perihal"),
                         rs.getString("tanggal_surat_penawaran"),
                         rs.getString("nama_perusahaan"),
@@ -46,6 +47,16 @@ public class SPDetailDAO {
 
         return list;
     }
+    public void deleteComponent(int componentId) {
+        String sql = "DELETE FROM komponen WHERE component_id = ?";
+        // eksekusi delete ke :contentReference[oaicite:4]{index=4}
+    }
+
+    public void updateComponent(int componentId, String namaBaru) {
+        String sql = "UPDATE komponen SET nama_component = ? WHERE component_id = ?";
+    }
+
+
 }
 
 

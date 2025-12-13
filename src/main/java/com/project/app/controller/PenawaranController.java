@@ -28,8 +28,6 @@ public class PenawaranController implements Initializable, MainInjectable {
     private static Parent viewListPenawaran; // tampilan list SP awal
     private AddNewPenawaranController addNewPenawaranController;
 
-
-
     private final PenawaranDAO dao = new PenawaranDAO();
 
     @Override
@@ -200,11 +198,9 @@ public class PenawaranController implements Initializable, MainInjectable {
 
         // Action pindah ke scene detail
         btnBuka.setOnAction(e -> {
-            System.out.println("SP ID yang diklik: " + sp.sp_id); // cek di console dulu
-            mainController.setSPIdBuffer(sp.sp_id); // simpen dulu
-            mainController.loadPage("addnewpenawaran"); // baru pindah scene
-        });
 
+            mainController.loadDetailPenawaran("addnewpenawaran", sp.noSP);
+        });
 
 
         // Set posisi tombol di kanan

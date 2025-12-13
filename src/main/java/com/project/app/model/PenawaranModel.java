@@ -35,6 +35,7 @@ public class PenawaranModel {
 
     public static class SPJobComponent {
         public int spId;
+        public String noSP;
         public String perihal;
         public String tanggal;
         public String namaPerusahaan;
@@ -46,10 +47,11 @@ public class PenawaranModel {
         public String namaComponent;
         public double hargaAcuan;
 
-        public SPJobComponent(int spId, String perihal, String tanggal, String namaPerusahaan,
+        public SPJobComponent(int spId,String noSP , String perihal, String tanggal, String namaPerusahaan,
                               int jobId, String namaPekerjaan, String namaMesin, String spesifikasiMesin,
                               int componentId, String namaComponent, double hargaAcuan) {
             this.spId = spId;
+            this.noSP = noSP;
             this.perihal = perihal;
             this.tanggal = tanggal;
             this.namaPerusahaan = namaPerusahaan;
