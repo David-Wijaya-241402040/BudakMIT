@@ -94,4 +94,25 @@ public class JobDAO {
             return affectedRows > 0;
         }
     }
+
+    public JobModel getJobById(Long jobId) throws SQLException {
+        String sql = "SELECT * FROM jobs WHERE job_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, jobId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                JobModel job = new JobModel();
+                job.setJobId(rs.getLong("job_id"));
+                job.setSpId(rs.getLong("sp_id"));
+                job.setNamaPekerjaan(rs.getString("nama_pekerjaan"));
+                job.setNamaMesin(rs.getString("nama_mesin"));
+                job.setSpesifikasiMesin(rs.getString("spesifikasi_mesin"));
+                job.setDeskripsiPekerjaan(rs.getString("deskripsi_pekerjaan"));
+                return job;
+            }
+            return null;
+        }
+    }
+
 }

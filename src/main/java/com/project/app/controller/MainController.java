@@ -280,4 +280,26 @@ public class MainController implements SharedControllerProvider {
             alert.showAndWait();
         });
     }
+
+    private Integer editSpId;
+    private Integer editJobId;
+
+    public void setEditJobContext(int spId, int jobId) {
+        this.editSpId = spId;
+        this.editJobId = jobId;
+    }
+
+    public Integer getEditSpId() {
+        return editSpId;
+    }
+
+    public Integer getEditJobId() {
+        return editJobId;
+    }
+
+    public void clearEditContext() {
+        editSpId = null;
+        editJobId = null;
+    }
+
 }

@@ -61,6 +61,36 @@ public class AddDetailPenawaranController implements Initializable {
     private JobDAO jobDAO;
     private DetailPekerjaanDAO detailPekerjaanDAO;
     private int spId;
+    private boolean editMode = false;
+    private Long jobId = null;
+
+    public void loadEditJob(Long spId, Long jobId) {
+        try {
+            this.spId = spId.intValue();
+
+            // 1. Load job
+            JobModel job = jobDAO.getJobById(jobId);
+            if (job == null) return;
+
+            namaPekerjaanField.setText(job.getNamaPekerjaan());
+            namaMesinField.setText(job.getNamaMesin());
+            spesifikasiMesinField.setText(job.getSpesifikasiMesin());
+            deskripsiArea.setText(job.getDeskripsiPekerjaan());
+
+            // 2. Load komponen
+            List<ItemPenawaranModel> items =
+                    detailPekerjaanDAO.getItemsByJobId(jobId);
+
+            itemTableView.getItems().setAll(items);
+            updateTotalHarga();
+
+            titleText.setText("Edit Detail Pekerjaan");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert("Error", "Gagal load data untuk edit");
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -120,7 +150,21 @@ public class AddDetailPenawaranController implements Initializable {
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+
+        // ===== MODE EDIT =====
+        if (mainController.getEditJobId() != null) {
+            this.editMode = true;
+            this.jobId = mainController.getEditJobId().longValue();
+
+            System.out.println("✏️ EDIT MODE AKTIF | jobId = " + jobId);
+
+            loadEditJob(
+                    mainController.getEditSpId().longValue(),
+                    jobId
+            );
+        }
     }
+
 
     public void showDetailPenawaran(int spId) {
         this.spId = spId;
@@ -400,7 +444,18 @@ public class AddDetailPenawaranController implements Initializable {
 
             // 1. Insert ke tabel jobs - GUNAKAN INSTANCE, BUKAN STATIC
             JobModel job = new JobModel((long) spId, namaPekerjaan, namaMesin, spesifikasi, deskripsi);
-            Long jobId = jobDAO.insertJob(job); // PERBAIKAN DI SINI
+            Long jobId;
+
+            if (editMode) {
+                job.setJobId(this.jobId);
+                jobDAO.updateJob(job);
+                jobId = this.jobId;
+
+                // hapus detail lama biar replace
+                detailPekerjaanDAO.deleteByJobId(jobId);
+            } else {
+                jobId = jobDAO.insertJob(job);
+            }
 
             System.out.println("✅ Job berhasil disimpan dengan ID: " + jobId);
 

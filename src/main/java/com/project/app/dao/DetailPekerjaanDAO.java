@@ -2,6 +2,7 @@
 package main.java.com.project.app.dao;
 
 import main.java.com.project.app.model.DetailPekerjaanModel;
+import main.java.com.project.app.model.ItemPenawaranModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,6 +28,15 @@ public class DetailPekerjaanDAO {
             pstmt.executeUpdate();
         }
     }
+
+    public void deleteByJobId(Long jobId) throws SQLException {
+        String sql = "DELETE FROM detail_pekerjaan WHERE job_id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, jobId);
+            ps.executeUpdate();
+        }
+    }
+
 
     // Insert batch detail pekerjaan
     public void insertDetailPekerjaanBatch(List<DetailPekerjaanModel> details) throws SQLException {
@@ -132,4 +142,31 @@ public class DetailPekerjaanDAO {
             return false;
         }
     }
+
+    public List<ItemPenawaranModel> getItemsByJobId(Long jobId) throws SQLException {
+        List<ItemPenawaranModel> items = new ArrayList<>();
+
+        String sql = """
+        SELECT k.nama_component, dp.qty, dp.harga_aktual
+        FROM detail_pekerjaan dp
+        JOIN komponen k ON dp.component_id = k.component_id
+        WHERE dp.job_id = ?
+    """;
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, jobId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ItemPenawaranModel item = new ItemPenawaranModel(
+                        rs.getString("nama_component"),
+                        rs.getInt("qty"),
+                        rs.getDouble("harga_aktual")
+                );
+                items.add(item);
+            }
+        }
+        return items;
+    }
+
 }

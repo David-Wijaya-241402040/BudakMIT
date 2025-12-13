@@ -52,4 +52,30 @@ public class SPDetailDAO {
 
         return list;
     }
+    public boolean deleteJobById(int jobId) throws SQLException {
+        String deleteDetail = "DELETE FROM detail_pekerjaan WHERE job_id = ?";
+        String deleteJob = "DELETE FROM jobs WHERE job_id = ?";
+
+        try (PreparedStatement psDetail = conn.prepareStatement(deleteDetail);
+             PreparedStatement psJob = conn.prepareStatement(deleteJob)) {
+
+            conn.setAutoCommit(false);
+
+            psDetail.setInt(1, jobId);
+            psDetail.executeUpdate();
+
+            psJob.setInt(1, jobId);
+            int affected = psJob.executeUpdate();
+
+            conn.commit();
+            return affected > 0;
+
+        } catch (SQLException e) {
+            conn.rollback();
+            throw e;
+        } finally {
+            conn.setAutoCommit(true);
+        }
+    }
+
 }
