@@ -1,5 +1,6 @@
 package main.java.com.project.app.controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -59,6 +60,7 @@ public class ManageAccountController implements MainInjectable {
 
         // Load data pertama kali
         loadAllUsers();
+        setupContextMenu();
     }
 
     private void loadAllUsers() {
@@ -90,6 +92,58 @@ public class ManageAccountController implements MainInjectable {
 
     @FXML private void goRefresh() {
         loadAllUsers();
+    }
+
+    private void setupContextMenu() {
+        userTable.setRowFactory(tv -> {
+            TableRow<UserSummaryModel> row = new TableRow<>();
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem deleteItem = new MenuItem("Delete Account");
+            deleteItem.setOnAction(event -> {
+                UserSummaryModel selectedUser = row.getItem();
+                boolean success = dao.deleteUser(selectedUser.getUserId());
+                if (success) {
+                    loadAllUsers();
+                    showAlert("INFO", "User berhasil dihapus!");
+                } else {
+                    showAlert("WARNING", "Gagal menghapus user!");
+                }
+            });
+
+            MenuItem toggleActiveItem = new MenuItem();
+            toggleActiveItem.setOnAction(event -> {
+                UserSummaryModel selectedUser = row.getItem();
+                String newStatus = selectedUser.getStatus().equalsIgnoreCase("active") ? "inactive" : "active";
+                boolean success = dao.updateUserStatus(selectedUser.getUserId(), newStatus);
+                if (success) {
+                    loadAllUsers();
+                    showAlert("INFO", "Status user berhasil diubah!");
+                } else {
+                    showAlert("WARNING", "Gagal mengubah status user!");
+                }
+            });
+
+            row.itemProperty().addListener((obs, oldUser, newUser) -> {
+                if (newUser == null) {
+                    row.setContextMenu(null);
+                } else {
+                    toggleActiveItem.setText(newUser.getStatus().equalsIgnoreCase("active") ? "Set Inactive" : "Set Active");
+                    contextMenu.getItems().setAll(deleteItem, toggleActiveItem);
+                    row.setContextMenu(contextMenu);
+                }
+            });
+
+            return row;
+        });
+    }
+
+    void showAlert(String title, String msg) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
+            alert.setTitle(title);
+            alert.showAndWait();
+        });
     }
 
 }

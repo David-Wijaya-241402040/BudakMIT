@@ -60,10 +60,21 @@ public class PenawaranDAO {
     }
 
     public Map<String, PenawaranModel.SPItem> searchSP(String keyword) throws SQLException {
-        String sql =
+        String role = Session.currentUser.getRoles();
+        int userID = Session.currentUser.getId();
+
+        String sql = "";
+        if(role.equals("owner")){
+            sql =
                 "SELECT * FROM view_surat_penawaran_detail " +
                         "WHERE no_sp LIKE ? " +
                         "ORDER BY sp_id ASC, job_id ASC";
+        } else if (role.equals("staff")) {
+            sql =
+                "SELECT * FROM view_surat_penawaran_detail " +
+                        "WHERE no_sp LIKE ? " + "AND user_id = " + userID +
+                        " ORDER BY sp_id ASC, job_id ASC";
+        }
 
         Map<String, PenawaranModel.SPItem> spMap = new LinkedHashMap<>();
 
