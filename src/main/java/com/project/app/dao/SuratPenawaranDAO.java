@@ -15,16 +15,44 @@ public class SuratPenawaranDAO {
 
     public boolean insertSuratPenawaran(SuratPenawaranModel sp) {
         String sql = "INSERT INTO surat_penawaran (no_sp, user_id, company_id, perihal, tanggal_surat_penawaran) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, sp.getNoSP());
-            ps.setInt(2, sp.getUserId());
-            ps.setInt(3, sp.getCompanyId());
-            ps.setString(4, sp.getPerihal());
-            ps.setDate(5, java.sql.Date.valueOf(sp.getTanggalSuratPenawaran()));
-            return ps.executeUpdate() > 0;
+        boolean success = false;
+
+        try {
+            // Matikan auto-commit
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, sp.getNoSP());
+                ps.setInt(2, sp.getUserId());
+                ps.setInt(3, sp.getCompanyId());
+                ps.setString(4, sp.getPerihal());
+                ps.setDate(5, java.sql.Date.valueOf(sp.getTanggalSuratPenawaran()));
+
+                success = ps.executeUpdate() > 0;
+            }
+
+            // Kalau berhasil, commit
+            if (success) {
+                conn.commit();
+            } else {
+                conn.rollback();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            try {
+                conn.rollback(); // rollback kalau ada error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true); // kembalikan auto-commit ke default
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        return success;
     }
 }
