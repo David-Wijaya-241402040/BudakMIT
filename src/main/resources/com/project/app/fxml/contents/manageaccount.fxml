@@ -14,22 +14,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.ManageAccountController">
+<AnchorPane prefHeight="1000.0" prefWidth="1110.0" stylesheets="@../../css/manageaccount.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.ManageAccountController">
    <children>
       <VBox layoutX="255.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <children>
-            <HBox prefHeight="68.0" prefWidth="1070.0">
+            <HBox prefHeight="116.0" prefWidth="1070.0">
                <children>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="145.0" prefWidth="679.0" spacing="20.0">
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="83.0" prefWidth="1080.0" spacing="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGE ACCOUNT" wrappingWidth="555.986328125">
-                           <font>
-                              <Font name="Georgia Bold" size="44.0" />
-                           </font>
-                        </Text>
+                        <VBox style="-fx-border-color: BLACK; -fx-border-width: 0 0 3 0;">
+                           <children>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/company-listperusahaanpopup.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGE ACCOUNT" wrappingWidth="555.986328125">
+                                       <font>
+                                          <Font name="Georgia Bold" size="44.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Daftar Akun Staff Terdaftar" wrappingWidth="375.349609375">
                            <font>
                               <Font name="Georgia" size="20.0" />
@@ -39,7 +52,7 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox prefHeight="883.0" prefWidth="1070.0" spacing="10.0">
+            <VBox prefHeight="849.0" prefWidth="1070.0" spacing="10.0">
                <children>
                   <AnchorPane prefHeight="31.0" prefWidth="971.0">
                      <children>

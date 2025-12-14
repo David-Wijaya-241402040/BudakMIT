@@ -185,6 +185,20 @@ public class AddNewPenawaranController {
 
                 final int currentJobId = d.jobId;
 
+                String role = Session.currentUser.getRoles();
+
+                if(role.equals("owner")) {
+                    btnEdit.setDisable(true);
+                    btnDelete.setDisable(true);
+                    btnEdit.setVisible(false);
+                    btnDelete.setVisible(false);
+                } else if (role.equals("staff")) {
+                    btnEdit.setDisable(false);
+                    btnDelete.setDisable(false);
+                    btnEdit.setVisible(true);
+                    btnDelete.setVisible(true);
+                }
+
                 btnDelete.setOnAction(e -> {
                     Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                     confirm.setTitle("Konfirmasi Hapus");
@@ -336,6 +350,19 @@ public class AddNewPenawaranController {
 
                 btnEdit.setPrefHeight(32);
                 btnDelete.setPrefHeight(32);
+
+                String role = Session.currentUser.getRoles();
+                if(role.equals("owner")) {
+                    btnEdit.setDisable(true);
+                    btnDelete.setDisable(true);
+                    btnEdit.setVisible(false);
+                    btnDelete.setVisible(false);
+                } else if (role.equals("staff")) {
+                    btnEdit.setDisable(false);
+                    btnDelete.setDisable(false);
+                    btnEdit.setVisible(true);
+                    btnDelete.setVisible(true);
+                }
 
                 final int currentJobId = d.jobId;
 

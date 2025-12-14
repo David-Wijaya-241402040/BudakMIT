@@ -23,14 +23,23 @@
                <children>
                   <VBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="1070.0" spacing="20.0" style="-fx-border-color: BLACK; -fx-border-width: 0 0 3 0;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
-                           <font>
-                              <Font name="Georgia Bold" size="44.0" />
-                           </font>
+                        <HBox spacing="10.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
-                        </Text>
+                           <children>
+                              <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/sparepart-salesoverview.png" />
+                                 </image>
+                              </ImageView>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
+                                 <font>
+                                    <Font name="Georgia Bold" size="44.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
                      </children>
                      <HBox.margin>
                         <Insets />
@@ -56,7 +65,7 @@
                                                 <Font name="Georgia" size="15.0" />
                                              </font>
                                           </TextField>
-                                          <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#goSearch" prefHeight="13.0" prefWidth="41.0" style="-fx-background-color: white; -fx-border-color: #C8C8C8; -fx-border-width: 0 0 0 1;">
+                                          <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#goSearch" prefHeight="13.0" prefWidth="41.0" style="-fx-background-color: transparent; -fx-border-color: #C8C8C8; -fx-border-width: 0 0 0 1;">
                                              <graphic>
                                                 <ImageView fitHeight="23.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -75,7 +84,7 @@
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="btnRefreshOwner" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="36.0" prefWidth="130.0" text="Refresh">
+                                    <Button fx:id="btnRefreshOwner" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Refresh" textFill="WHITE">
                                        <graphic>
                                           <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -87,7 +96,7 @@
                                           <Font name="Georgia" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="btnAddPenawaran" graphicTextGap="10.0" layoutX="-53.0" layoutY="-9.0" mnemonicParsing="false" onAction="#goAdd" prefHeight="36.0" prefWidth="207.0" text="Tambah Penawaran" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Button fx:id="btnAddPenawaran" graphicTextGap="10.0" layoutX="-53.0" layoutY="-9.0" mnemonicParsing="false" onAction="#goAdd" prefHeight="36.0" prefWidth="207.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Tambah Penawaran" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <graphic>
                                           <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -101,7 +110,7 @@
                                     </Button>
                                  </children>
                               </AnchorPane>
-                              <Button fx:id="btnRefresh" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="36.0" prefWidth="130.0" text="Refresh">
+                              <Button fx:id="btnRefresh" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="36.0" prefWidth="130.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Refresh" textFill="WHITE">
                                  <graphic>
                                     <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

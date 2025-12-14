@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="popupRoot" prefHeight="1000.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.45);" stylesheets="@../../css/salesoverview_popup.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.CreatePenawaranPopupController">
+<AnchorPane fx:id="popupRoot" prefHeight="1000.0" prefWidth="1400.0" style="-fx-background-color: rgba(0, 0, 0, 0.45);" stylesheets="@../../css/createsuratpenawaran_popup.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.CreatePenawaranPopupController">
 
     <children>
         <VBox alignment="TOP_CENTER" layoutX="67.0" layoutY="165.0" prefHeight="613.0" prefWidth="1272.0" spacing="20.0" style="-fx-background-color: #f6f6f6; -fx-padding: 25; -fx-background-radius: 12;" AnchorPane.bottomAnchor="193.0" AnchorPane.leftAnchor="67.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="193.0">

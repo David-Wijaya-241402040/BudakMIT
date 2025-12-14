@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.AddDetailPenawaranController">
+<AnchorPane prefHeight="1000.0" prefWidth="1110.0" stylesheets="@../../css/adddetailpenawaran.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.AddDetailPenawaranController">
     <children>
         <VBox layoutX="255.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <padding>
@@ -26,14 +26,23 @@
                     <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="1070.0" spacing="20.0" style="-fx-border-color: BLACK; -fx-border-width: 0 0 3 0;">
                             <children>
-                                <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
-                                    <font>
-                                        <Font name="Georgia Bold" size="44.0" />
-                                    </font>
-                                    <VBox.margin>
-                                        <Insets />
-                                    </VBox.margin>
-                                </Text>
+                        <HBox spacing="10.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/sparepart-salesoverview.png" />
+                                 </image>
+                              </ImageView>
+                                      <Text fx:id="titleText" strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="982.986328125">
+                                          <font>
+                                              <Font name="Georgia Bold" size="44.0" />
+                                          </font>
+                                      </Text>
+                           </children>
+                        </HBox>
                             </children>
                             <HBox.margin>
                                 <Insets />
@@ -201,11 +210,11 @@
                                                         </VBox>
                                                         <HBox alignment="TOP_RIGHT" prefHeight="24.0" prefWidth="322.0">
                                                             <children>
-                                                                <Button fx:id="addItemButton" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Add">
+                                                                <Button fx:id="addItemButton" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: black;" text="Add" textFill="WHITE">
                                                                     <graphic>
                                                                         <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                                                             <image>
-                                                                                <Image url="@../../images/save-adddetailpenawaran.png" />
+                                                                                <Image url="@../../images/plus-penawaran.png" />
                                                                             </image>
                                                                         </ImageView>
                                                                     </graphic>
@@ -322,7 +331,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="1070.0">
                                     <children>
-                                        <Button fx:id="saveButton" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" text="Save">
+                                        <Button fx:id="saveButton" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Save" textFill="WHITE">
                                             <graphic>
                                                 <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
