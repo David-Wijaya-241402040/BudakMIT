@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<<<<<<< HEAD
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,6 +16,24 @@
             <Button fx:id="btnHome" mnemonicParsing="false" onAction="#goHome" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Home" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="24.0" />
+=======
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="290.0" style="-fx-background-color: #1B4332;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.SidebarController">
+   <children>
+      <VBox layoutX="115.0" layoutY="93.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#goHome" prefHeight="61.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                </font>
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -24,9 +43,15 @@
                   </ImageView>
                </graphic>
             </Button>
+<<<<<<< HEAD
             <Button fx:id="btnPenawaran" mnemonicParsing="false" onAction="#goPenawaran" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Penawaran" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="24.0" />
+=======
+            <Button fx:id="btnPenawaran" mnemonicParsing="false" onAction="#goPenawaran" prefHeight="87.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Penawaran" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                </font>
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -36,9 +61,15 @@
                   </ImageView>
                </graphic>
             </Button>
+<<<<<<< HEAD
             <Button fx:id="btnTagihan" mnemonicParsing="false" onAction="#goTagihan" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Tagihan" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="24.0" />
+=======
+            <Button fx:id="btnTagihan" mnemonicParsing="false" onAction="#goTagihan" prefHeight="87.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Tagihan" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                </font>
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -48,9 +79,15 @@
                   </ImageView>
                </graphic>
             </Button>
+<<<<<<< HEAD
             <Button fx:id="btnSparepart" mnemonicParsing="false" onAction="#goSparepart" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Sparepart" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="24.0" />
+=======
+            <Button fx:id="btnSparepart" mnemonicParsing="false" onAction="#goSparepart" prefHeight="87.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Sparepart" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                </font>
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -62,9 +99,15 @@
             </Button>
             <AnchorPane prefHeight="87.0" prefWidth="290.0">
                <children>
+<<<<<<< HEAD
                   <Button fx:id="btnLogoutAdmin" mnemonicParsing="false" onAction="#goLogout" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Logout" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Georgia" size="24.0" />
+=======
+                  <Button fx:id="btnLogoutAdmin" mnemonicParsing="false" onAction="#goLogout" prefHeight="87.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Logout" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                      </font>
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -74,9 +117,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
+<<<<<<< HEAD
                   <Button fx:id="btnManageAccount" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goManageAccount" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Manage Accounts" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font name="Georgia" size="24.0" />
+=======
+                  <Button fx:id="btnManageAccount" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#goManageAccount" prefHeight="87.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Manage Accounts" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                      </font>
                      <graphic>
                         <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -88,9 +137,15 @@
                   </Button>
                </children>
             </AnchorPane>
+<<<<<<< HEAD
             <Button fx:id="btnLogoutOwner" mnemonicParsing="false" onAction="#goLogout" prefHeight="87.0" prefWidth="290.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Logout" textFill="WHITE">
                <font>
                   <Font name="Georgia" size="24.0" />
+=======
+            <Button fx:id="btnLogoutOwner" mnemonicParsing="false" onAction="#goLogout" prefHeight="87.0" prefWidth="270.0" style="-fx-alignment: CENTER_LEFT; -fx-graphic-text-gap: 20; -fx-background-color: transparent;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
                </font>
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
@@ -100,6 +155,27 @@
                   </ImageView>
                </graphic>
             </Button>
+<<<<<<< HEAD
+=======
+            <VBox alignment="BOTTOM_CENTER" prefHeight="479.0" prefWidth="270.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="11.0" prefWidth="270.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Wanna Change Password?">
+                           <font>
+                              <Font name="Georgia" size="13.0" />
+                           </font>
+                        </Text>
+                        <Hyperlink fx:id="goChangePass" text="Click Me!">
+                           <font>
+                              <Font name="Georgia" size="13.0" />
+                           </font>
+                        </Hyperlink>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

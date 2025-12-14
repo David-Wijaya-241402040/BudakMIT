@@ -4,6 +4,10 @@ out/
 !**/src/test/**/out/
 .idea/
 *.iml
+<<<<<<< HEAD
+=======
+*pdf
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 ### Eclipse ###
 .apt_generated

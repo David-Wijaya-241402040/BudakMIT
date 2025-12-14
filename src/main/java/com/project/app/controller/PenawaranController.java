@@ -1,5 +1,9 @@
 package main.java.com.project.app.controller;
 
+<<<<<<< HEAD
+=======
+import javafx.application.Platform;
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,12 +11,23 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import main.java.com.project.app.dao.PenawaranDAO;
 import main.java.com.project.app.model.PenawaranModel;
+=======
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import jfx.incubator.scene.control.richtext.SelectionSegment;
+import main.java.com.project.app.dao.PenawaranDAO;
+import main.java.com.project.app.model.PenawaranModel;
+import main.java.com.project.app.pdfwriter.PdfExporter;
+import main.java.com.project.app.session.Session;
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +40,13 @@ public class PenawaranController implements Initializable, MainInjectable {
 
     private MainController mainController;
     @FXML private VBox vboxSuratContainer;
+<<<<<<< HEAD
+=======
+    @FXML private TextField searchField;
+    @FXML private Button btnRefresh;
+    @FXML private Button btnRefreshOwner;
+    @FXML private Button btnAddPenawaran;
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
     private static Parent viewListPenawaran; // tampilan list SP awal
     private AddNewPenawaranController addNewPenawaranController;
 
@@ -43,9 +65,31 @@ public class PenawaranController implements Initializable, MainInjectable {
             System.err.println("❌ Error load SP: " + e.getMessage());
         }
 
+<<<<<<< HEAD
     }
 
     private void loadSP() throws SQLException {
+=======
+        String role = Session.currentUser.getRoles();
+        if(role.equals("owner")) {
+            btnAddPenawaran.setDisable(true);
+            btnAddPenawaran.setVisible(false);
+            btnRefresh.setDisable(true);
+            btnRefresh.setVisible(false);
+            btnRefreshOwner.setVisible(true);
+            btnRefreshOwner.setDisable(false);
+        } else if (role.equals("staff")) {
+            btnAddPenawaran.setDisable(false);
+            btnAddPenawaran.setVisible(true);
+            btnRefresh.setDisable(false);
+            btnRefresh.setVisible(true);
+            btnRefreshOwner.setVisible(false);
+            btnRefreshOwner.setDisable(true);
+        }
+    }
+
+    public void loadSP() throws SQLException {
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
         Map<String, PenawaranModel.SPItem> spMap = dao.loadSP();
 
         vboxSuratContainer.getChildren().clear();
@@ -67,7 +111,13 @@ public class PenawaranController implements Initializable, MainInjectable {
         Label lblPerusahaan = new Label("Perusahaan: " + (sp.perusahaan == null ? "-" : sp.perusahaan));
         lblPerusahaan.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
+<<<<<<< HEAD
         Label lblPembuat = new Label("Dibuat oleh: " + (sp.pembuat == null ? "-" : sp.pembuat));
+=======
+        String username = Session.currentUser.getNickname();
+
+        Label lblPembuat = new Label("Dibuat oleh: " + username);
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
         lblPembuat.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
         VBox jobContainer = new VBox(6);
@@ -192,12 +242,18 @@ public class PenawaranController implements Initializable, MainInjectable {
         );
 
         // Hover effect
+<<<<<<< HEAD
                 btnBuka.setOnMouseEntered(e -> btnBuka.setStyle(btnBuka.getStyle().replace("#357ABD", "#2C5FA8")));
                 btnBuka.setOnMouseExited(e -> btnBuka.setStyle(btnBuka.getStyle().replace("#2C5FA8", "#357ABD")));
+=======
+        btnBuka.setOnMouseEntered(e -> btnBuka.setStyle(btnBuka.getStyle().replace("#357ABD", "#2C5FA8")));
+        btnBuka.setOnMouseExited(e -> btnBuka.setStyle(btnBuka.getStyle().replace("#2C5FA8", "#357ABD")));
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 
         // Action pindah ke scene detail
         btnBuka.setOnAction(e -> {
+<<<<<<< HEAD
 
             mainController.loadDetailPenawaran("addnewpenawaran", sp.noSP);
         });
@@ -217,3 +273,160 @@ public class PenawaranController implements Initializable, MainInjectable {
         return String.format("%,.0f", value).replace(",", ".");
     }
 }
+=======
+            System.out.println("SP ID yang diklik: " + sp.sp_id); // cek di console dulu
+            mainController.setSPIdBuffer(sp.sp_id); // simpen dulu
+            mainController.loadPage("addnewpenawaran"); // baru pindah scene
+        });
+
+        Button btnDelete = new Button("Delete Penawaran");
+        btnDelete.setStyle(
+                "-fx-font-family: Georgia; " +
+                        "-fx-font-size: 13px; " +
+                        "-fx-background-color: linear-gradient(to bottom, #e74c3c, #c0392b); " + // merah
+                        "-fx-text-fill: white; " +
+                        "-fx-background-radius: 8; " +
+                        "-fx-padding: 6 18 6 18; " +
+                        "-fx-border-color: #a93226; " +
+                        "-fx-border-width: 1.2; " +
+                        "-fx-border-radius: 8; " +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(192,57,43,0.4), 8, 0.3, 0, 2);"
+        );
+
+
+        btnDelete.setOnMouseEntered(e -> btnDelete.setStyle(btnDelete.getStyle().replace("#c0392b", "#922b21")));
+        btnDelete.setOnMouseExited(e -> btnDelete.setStyle(btnDelete.getStyle().replace("#922b21", "#c0392b")));
+
+
+        btnDelete.setOnAction(e -> {
+            try {
+                boolean success = dao.deleteSP(sp.sp_id);
+                if(success){
+                    System.out.println("SP berhasil dihapus: " + sp.sp_id);
+                    showAlert("INFORMATION", "Surat Penawaran berhasil Dihapus");
+                    goRefresh(); // refresh list setelah delete
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                System.err.println("Gagal menghapus SP: " + sp.sp_id);
+            }
+        });
+
+
+        Button btnExport = new Button("Export Penawaran");
+        btnExport.setStyle(
+                "-fx-font-family: Georgia; " +
+                        "-fx-font-size: 13px; " +
+                        "-fx-background-color: linear-gradient(to bottom, #2ecc71, #27ae60); " + // hijau
+                        "-fx-text-fill: white; " +
+                        "-fx-background-radius: 8; " +
+                        "-fx-padding: 6 18 6 18; " +
+                        "-fx-border-color: #1e8449; " +
+                        "-fx-border-width: 1.2; " +
+                        "-fx-border-radius: 8; " +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(39,174,96,0.4), 8, 0.3, 0, 2);"
+        );
+
+
+        btnExport.setOnMouseEntered(e -> btnExport.setStyle(btnExport.getStyle().replace("#27ae60", "#1e8449")));
+        btnExport.setOnMouseExited(e -> btnExport.setStyle(btnExport.getStyle().replace("#1e8449", "#27ae60")));
+
+
+        btnExport.setOnAction(e -> {
+            System.out.println("Export SP ID: " + sp.sp_id);
+            try {
+                // Panggil PDF generator dengan SP ID yang diklik
+                PdfExporter.generatePdf(sp.sp_id);
+                showAlert("INFORMATION", "PDF berhasil di-export untuk SP ID: " + sp.sp_id);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showAlert("ERROR", "Gagal export PDF SP ID: " + sp.sp_id);
+            }
+        });
+
+
+        String role = Session.currentUser.getRoles();
+        VBox buttonBox = new VBox(6, btnBuka, btnExport, btnDelete);
+        buttonBox.setFillWidth(true); // otomatis button ikut lebar VBox
+        btnBuka.setMaxWidth(Double.MAX_VALUE);
+        btnDelete.setMaxWidth(Double.MAX_VALUE);
+        btnExport.setMaxWidth(Double.MAX_VALUE);
+
+        if(role.equals("owner")) {
+            btnDelete.setVisible(false);
+            btnDelete.setDisable(true);
+        } else if (role.equals("staff")) {
+            btnDelete.setVisible(true);
+            btnDelete.setDisable(false);
+        }
+
+        AnchorPane.setTopAnchor(buttonBox, 45.0);
+        AnchorPane.setRightAnchor(buttonBox, 15.0);
+
+        ap.getChildren().add(buttonBox);
+        return ap;
+    }
+
+    private String formatRupiah(double value) {
+        return String.format("%,.0f", value).replace(",", ".");
+    }
+
+    @FXML
+    public void goAdd() {
+        mainController.handleAddPenawaran();
+    }
+
+
+    @FXML
+    public void goSearch() {
+        String keyword = searchField.getText().trim();
+
+        if (keyword.isEmpty()) {
+            try {
+                loadSP();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
+        try {
+            Map<String, PenawaranModel.SPItem> result = dao.searchSP(keyword);
+
+            vboxSuratContainer.getChildren().clear();
+
+            if (result.isEmpty()) {
+                Label lbl = new Label("Tidak ada hasil untuk: " + keyword);
+                lbl.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px; -fx-text-fill: gray;");
+                vboxSuratContainer.getChildren().add(lbl);
+                return;
+            }
+
+            for (PenawaranModel.SPItem sp : result.values()) {
+                vboxSuratContainer.getChildren().add(createSPPane(sp));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goRefresh() {
+        try {
+            loadSP();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void showAlert(String title, String msg) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
+            alert.setTitle(title);
+            alert.showAndWait();
+        });
+    }
+}
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116

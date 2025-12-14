@@ -4,6 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.java.com.project.app.config.DBConnection;
 import main.java.com.project.app.model.TagihanModel;
+<<<<<<< HEAD
+=======
+import main.java.com.project.app.session.Session;
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 import java.sql.*;
 
@@ -12,7 +16,19 @@ public class TagihanDAO {
     public ObservableList<TagihanModel> getAllTagihan() {
         ObservableList<TagihanModel> list = FXCollections.observableArrayList();
 
+<<<<<<< HEAD
         String query = "SELECT * FROM view_tagihan_penawaran";
+=======
+        int userId = Session.currentUser.getId();
+        String userRole = Session.currentUser.getRoles();
+        String query = "";
+
+        if(userRole.equals("owner")) {
+            query = "SELECT * FROM view_tagihan_penawaran";
+        } else if (userRole.equals("staff")) {
+            query = "SELECT * FROM view_tagihan_penawaran WHERE user_id = " + userId;
+        }
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query);

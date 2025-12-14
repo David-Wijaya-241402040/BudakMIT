@@ -14,10 +14,17 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import main.java.com.project.app.model.SparepartModel;
 import main.java.com.project.app.model.TagihanModel;
+<<<<<<< HEAD
 
 import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.sql.Connection;
+=======
+import main.java.com.project.app.session.Session;
+
+import javax.swing.text.html.HTML;
+import java.io.IOException;
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 public class MainController implements SharedControllerProvider {
     @FXML private AnchorPane contentArea;
@@ -25,11 +32,25 @@ public class MainController implements SharedControllerProvider {
     @FXML private StackPane rootPane;
     private SparepartController sparepartController;
     private TagihanController tagihanController;
+<<<<<<< HEAD
     private AddNewPenawaranController addNewPenawaranController;
 
     @FXML public void initialize() {
         sidebarController.setMainController(this);
         loadPage("home");
+=======
+    private CreatePenawaranPopupController activePenawaranPopup;
+
+
+    @FXML public void initialize() {
+        sidebarController.setMainController(this);
+        String role = Session.currentUser.getRoles();
+        if(role.equals("owner")) {
+            loadPage("home");
+        } else if (role.equals("staff")) {
+            loadPage("homestaff");
+        }
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
     }
 
     @Override
@@ -53,12 +74,27 @@ public class MainController implements SharedControllerProvider {
     }
 
     @Override
+<<<<<<< HEAD
     public void setAddNewPenawaranController(AddNewPenawaranController controller) {this.addNewPenawaranController = controller;}
 
     @Override
     public AddNewPenawaranController getAddNewPenawaranController() {return addNewPenawaranController;}
 
     public String noSP;
+=======
+    public void setActivePenawaranPopup(CreatePenawaranPopupController controller) {this.activePenawaranPopup = controller;}
+
+    @Override
+    public CreatePenawaranPopupController getPenawaranPopupController() {
+        return activePenawaranPopup;
+    }
+
+    private int spIdBuffer = 0;
+
+    public void setSPIdBuffer(int spId) {
+        this.spIdBuffer = spId;
+    }
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 
     public void loadPage(String page){
@@ -80,11 +116,20 @@ public class MainController implements SharedControllerProvider {
             } else if (controller instanceof TagihanController) {
                 this.setTagihanController((TagihanController) controller);
             } else if (controller instanceof AddNewPenawaranController) {
+<<<<<<< HEAD
                 this.setAddNewPenawaranController((AddNewPenawaranController) controller);
 
                 // 🔥 TAMBAHAN BIAR noSP NYAMPE KE CONTROLLER YANG SEDANG DI-LOAD
                 AddNewPenawaranController ap = (AddNewPenawaranController) controller;
                 ap.setNoSP(this.noSP);
+=======
+                ((AddNewPenawaranController) controller).setMainController(this);
+                ((AddNewPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+            } else if (controller instanceof AddDetailPenawaranController) {
+                ((AddDetailPenawaranController) controller).setMainController(this);
+                ((AddDetailPenawaranController) controller).showDetailPenawaran(spIdBuffer);
+                System.out.println("✅ Passing spIdBuffer to AddDetailPenawaranController: " + spIdBuffer);
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
             }
 
             contentArea.getChildren().setAll(node);
@@ -213,6 +258,56 @@ public class MainController implements SharedControllerProvider {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void handleAddPenawaran() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createsuratpenawaran_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreatePenawaranPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleAddCompany() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/com/project/app/fxml/popup/createperusahaan_popup.fxml"));
+
+            AnchorPane popup = loader.load();
+
+            CreatePerusahaanPopupController popupController = loader.getController();
+            popupController.setMainController(this);
+
+            // ❗ PASANG CALLBACK KE POPUP PENAWARAN AKTIF
+            CreatePenawaranPopupController activePenawaranPopup = getPenawaranPopupController();
+            if (activePenawaranPopup != null) {
+                popupController.setOnCompanyAdded(activePenawaranPopup::loadCompanies);
+            }
+
+            rootPane.getChildren().add(popup);
+
+            AnchorPane.setTopAnchor(popup, 0.0);
+            AnchorPane.setBottomAnchor(popup, 0.0);
+            AnchorPane.setLeftAnchor(popup, 0.0);
+            AnchorPane.setRightAnchor(popup, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
     void showAlert(String title, String msg) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
@@ -221,6 +316,7 @@ public class MainController implements SharedControllerProvider {
         });
     }
 
+<<<<<<< HEAD
     public void loadDetailPenawaran(String page, String nosurat) {
         this.noSP = nosurat;  // simpan dulu nilainya di MainController
         System.out.println("Load Detail Penawaran NO SP: " + nosurat);
@@ -231,4 +327,27 @@ public class MainController implements SharedControllerProvider {
         this.noSP = nosurat;
         System.out.println("📌 NO SP diterima di AddNewController: " + noSP);
     }
+=======
+    private Integer editSpId;
+    private Integer editJobId;
+
+    public void setEditJobContext(int spId, int jobId) {
+        this.editSpId = spId;
+        this.editJobId = jobId;
+    }
+
+    public Integer getEditSpId() {
+        return editSpId;
+    }
+
+    public Integer getEditJobId() {
+        return editJobId;
+    }
+
+    public void clearEditContext() {
+        editSpId = null;
+        editJobId = null;
+    }
+
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 }

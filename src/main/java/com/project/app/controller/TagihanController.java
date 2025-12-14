@@ -8,6 +8,10 @@ import main.java.com.project.app.Main;
 import main.java.com.project.app.dao.TagihanDAO;
 import main.java.com.project.app.model.SparepartModel;
 import main.java.com.project.app.model.TagihanModel;
+<<<<<<< HEAD
+=======
+import main.java.com.project.app.session.Session;
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -43,6 +47,21 @@ public class TagihanController implements Initializable, MainInjectable {
         tableTagihan.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             btnUpdate.setDisable(newVal == null);
         });
+<<<<<<< HEAD
+=======
+
+        String role = Session.currentUser.getRoles();
+        if(role.equals("owner")) {
+            btnAdd.setDisable(true);
+            btnAdd.setVisible(false);
+            btnUpdate.setDisable(true);
+            btnUpdate.setVisible(false);
+        } else if (role.equals("staff")) {
+            btnAdd.setDisable(false);
+            btnAdd.setVisible(true);
+            btnUpdate.setVisible(true);
+        }
+>>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
     }
 
     private void setupTable() {
