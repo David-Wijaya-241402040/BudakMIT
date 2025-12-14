@@ -38,33 +38,6 @@ public class SparepartDAO {
         return list;
     }
 
-    public List<SparepartModel> searchKomponen(String keyword) throws SQLException {
-        List<SparepartModel> list = new ArrayList<>();
-
-        String sql = "SELECT * FROM view_komponen_harga_detail " +
-                "WHERE nama_component LIKE ? OR nama_satuan LIKE ?";
-
-        PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, "%" + keyword + "%");
-        st.setString(2, "%" + keyword + "%");
-
-        ResultSet rs = st.executeQuery();
-
-        while (rs.next()) {
-            list.add(new SparepartModel(
-                    rs.getInt("component_id"),
-                    rs.getString("nama_component"),
-                    rs.getString("nama_satuan"),
-                    rs.getInt("qty"),
-                    rs.getDouble("harga_acuan_lama"),
-                    rs.getDouble("harga_acuan_baru"),
-                    rs.getString("tanggal_berlaku_baru")
-            ));
-        }
-
-        return list;
-    }
-
     public List<SparepartModel> searchByCategory(String keyword, String category) throws SQLException {
         List<SparepartModel> list = new ArrayList<>();
 
@@ -107,42 +80,125 @@ public class SparepartDAO {
         return list;
     }
 
-    public boolean addSparepart(String nama, String satuan, int qty, double hargaBaru) throws SQLException {
+    public boolean addSparepart(String nama, String satuan, int qty, double hargaBaru) {
         String sql = "INSERT INTO komponen (nama_component, nama_satuan, qty, harga_acuan, tanggal_berlaku) " +
                 "VALUES (?, ?, ?, ?, CURRENT_DATE)";
+        boolean success = false;
 
-        PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, nama);
-        st.setString(2, satuan);
-        st.setInt(3, qty);
-        st.setDouble(4, hargaBaru);
+        try {
+            conn.setAutoCommit(false); // mulai transaksi
 
-        return st.executeUpdate() > 0;
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
+                st.setString(1, nama);
+                st.setString(2, satuan);
+                st.setInt(3, qty);
+                st.setDouble(4, hargaBaru);
+
+                if (st.executeUpdate() > 0) {
+                    success = true;
+                } else {
+                    conn.rollback(); // rollback kalau insert gagal
+                    return false;
+                }
+            }
+
+            conn.commit(); // commit kalau sukses
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback(); // rollback kalau ada error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            success = false;
+        } finally {
+            try {
+                conn.setAutoCommit(true); // kembalikan auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return success;
     }
 
-    public boolean updateSparepart(int id, String nama, String satuan, int qty, double hargaBaru) throws SQLException {
+    public boolean updateSparepart(int id, String nama, String satuan, int qty, double hargaBaru) {
         String sql = "UPDATE komponen SET nama_component=?, nama_satuan=?, qty=?, " +
                 "harga_acuan=?, tanggal_berlaku=CURRENT_DATE WHERE component_id=?";
+        boolean success = false;
 
-        PreparedStatement st = conn.prepareStatement(sql);
-        st.setString(1, nama);
-        st.setString(2, satuan);
-        st.setInt(3, qty);
-        st.setDouble(4, hargaBaru);
-        st.setInt(5, id);
+        try {
+            conn.setAutoCommit(false); // mulai transaksi
 
-        return st.executeUpdate() > 0;
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
+                st.setString(1, nama);
+                st.setString(2, satuan);
+                st.setInt(3, qty);
+                st.setDouble(4, hargaBaru);
+                st.setInt(5, id);
+
+                if (st.executeUpdate() > 0) {
+                    success = true;
+                } else {
+                    conn.rollback(); // rollback kalau update gagal
+                    return false;
+                }
+            }
+
+            conn.commit(); // commit kalau sukses
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback(); // rollback kalau ada error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            success = false;
+        } finally {
+            try {
+                conn.setAutoCommit(true); // kembalikan auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return success;
     }
 
     public boolean deleteSparepart(int id) {
         String sql = "DELETE FROM komponen WHERE component_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0; // true kalau ada baris terhapus
+        boolean success = false;
+
+        try {
+            conn.setAutoCommit(false); // mulai transaksi
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                int affectedRows = stmt.executeUpdate();
+                if (affectedRows > 0) {
+                    success = true;
+                } else {
+                    conn.rollback(); // rollback kalau tidak ada baris terhapus
+                    return false;
+                }
+            }
+
+            conn.commit(); // commit kalau sukses
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            try {
+                conn.rollback(); // rollback kalau error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            success = false;
+        } finally {
+            try {
+                conn.setAutoCommit(true); // kembalikan auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        return success;
     }
 }

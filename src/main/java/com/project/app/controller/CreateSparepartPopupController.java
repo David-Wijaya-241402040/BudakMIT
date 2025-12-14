@@ -1,8 +1,11 @@
 package main.java.com.project.app.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -104,6 +107,8 @@ public class CreateSparepartPopupController implements MainInjectable {
             if (success) {
                 sparepartController.loadData();
                 closePopup();
+            } else {
+                showAlert("WARNING", "Harap isi semua field sebelum menambahkan komponen baru!");
             }
 
         } catch (Exception e) {
@@ -126,6 +131,8 @@ public class CreateSparepartPopupController implements MainInjectable {
             if (success) {
                 sparepartController.loadData();
                 closePopup();
+            } else {
+                showAlert("WARNING", "Harap isi semua field sebelum menambahkan komponen baru!");
             }
 
         } catch (Exception e) {
@@ -138,5 +145,13 @@ public class CreateSparepartPopupController implements MainInjectable {
         if(parent != null) {
             ((Pane) parent).getChildren().remove(popupRoot);
         }
+    }
+
+    void showAlert(String title, String msg) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
+            alert.setTitle(title);
+            alert.showAndWait();
+        });
     }
 }

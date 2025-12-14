@@ -31,30 +31,6 @@ public class KomponenDAO {
         return komponenList;
     }
 
-    // Get komponen by name
-    public KomponenModel getKomponenByName(String nama) throws SQLException {
-        String sql = "SELECT * FROM komponen WHERE nama_component = ? LIMIT 1";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, nama);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                KomponenModel komponen = new KomponenModel();
-                komponen.setComponentId(rs.getLong("component_id"));
-                komponen.setNamaComponent(rs.getString("nama_component"));
-                komponen.setNamaSatuan(rs.getString("nama_satuan"));
-                komponen.setQty(rs.getInt("qty"));
-                komponen.setHargaAcuan(rs.getBigDecimal("harga_acuan"));
-                komponen.setTanggalBerlaku(rs.getTimestamp("tanggal_berlaku"));
-                komponen.setCreatedAt(rs.getTimestamp("created_at"));
-                komponen.setUpdatedAt(rs.getTimestamp("updated_at"));
-                return komponen;
-            }
-            return null;
-        }
-    }
-
     // Get component ID by name (method baru)
     public Integer getComponentIdByName(String namaComponent) throws SQLException {
         String sql = "SELECT component_id FROM komponen WHERE nama_component = ? LIMIT 1";
@@ -70,33 +46,6 @@ public class KomponenDAO {
         }
     }
 
-    // Insert new komponen
-    public Long insertKomponen(KomponenModel komponen) throws SQLException {
-        String sql = "INSERT INTO komponen (nama_component, nama_satuan, qty, harga_acuan, tanggal_berlaku) " +
-                "VALUES (?, ?, ?, ?, ?)";
-
-        try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, komponen.getNamaComponent());
-            pstmt.setString(2, komponen.getNamaSatuan());
-            pstmt.setInt(3, komponen.getQty());
-            pstmt.setBigDecimal(4, komponen.getHargaAcuan());
-            pstmt.setTimestamp(5, komponen.getTanggalBerlaku());
-
-            int affectedRows = pstmt.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating komponen failed, no rows affected.");
-            }
-
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return generatedKeys.getLong(1);
-                } else {
-                    throw new SQLException("Creating komponen failed, no ID obtained.");
-                }
-            }
-        }
-    }
     // Tambahkan method ini di KomponenDAO
     public BigDecimal getHargaAcuanByComponentId(Long componentId) throws SQLException {
         String sql = "SELECT harga_acuan FROM komponen WHERE component_id = ?";

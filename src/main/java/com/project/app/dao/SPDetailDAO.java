@@ -111,5 +111,46 @@ public class SPDetailDAO {
         }
     }
 
+<<<<<<< HEAD
 }
 >>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
+=======
+    public List<PenawaranModel.SPJobComponent> searchDetailBySPAndNamaPekerjaan(int spId, String keyword) {
+        List<PenawaranModel.SPJobComponent> list = new ArrayList<>();
+        String sql = "SELECT * FROM view_surat_penawaran_jobs_komponen " +
+                "WHERE sp_id = ? AND nama_pekerjaan LIKE ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, spId);
+            ps.setString(2, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new PenawaranModel.SPJobComponent(
+                        rs.getInt("sp_id"),
+                        rs.getString("no_sp"),
+                        rs.getString("perihal"),
+                        rs.getString("user_id"),
+                        rs.getString("tanggal_surat_penawaran"),
+                        rs.getString("nama_perusahaan"),
+                        rs.getInt("job_id"),
+                        rs.getString("nama_pekerjaan"),
+                        rs.getString("nama_mesin"),
+                        rs.getString("spesifikasi_mesin"),
+                        rs.getString("deskripsi_pekerjaan"),
+                        rs.getInt("component_id"),
+                        rs.getString("nama_component"),
+                        rs.getInt("qty"),
+                        rs.getDouble("harga_acuan"),
+                        rs.getDouble("harga_aktual"),
+                        rs.getDouble("harga_komponen")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+}
+>>>>>>> c2c9aeaaabe1c6b3bac92ac3ab866f179bb78efd

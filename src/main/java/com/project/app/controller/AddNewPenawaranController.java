@@ -95,6 +95,10 @@ public class AddNewPenawaranController {
     @FXML VBox vboxDetail;
     @FXML ScrollPane scrollRincian;
     @FXML Button btnTambahRincian;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button btnSearch;
 
     private SPDetailDAO dao;
     private int spId;
@@ -127,6 +131,8 @@ public class AddNewPenawaranController {
             scrollRincian.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             scrollRincian.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
+            btnSearch.setOnAction(e -> handleSearch());
+
         } catch (Exception e) {
             System.out.println("❌ Koneksi DB gagal di initialize!");
 >>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
@@ -134,6 +140,7 @@ public class AddNewPenawaranController {
         }
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public void showDetailPenawaran(String nosurat) {
         this.noSP = nosurat;
@@ -290,6 +297,20 @@ public class AddNewPenawaranController {
 
 }
 =======
+=======
+    private void handleSearch() {
+        String keyword = searchField.getText().trim();
+
+        if (spId == 0) {
+            showError("Anda harus membuat surat penawaran terlebih dahulu.");
+            return;
+        }
+
+        List<PenawaranModel.SPJobComponent> filtered = dao.searchDetailBySPAndNamaPekerjaan(spId, keyword);
+        showDetailPenawaran(filtered);
+    }
+
+>>>>>>> c2c9aeaaabe1c6b3bac92ac3ab866f179bb78efd
     @FXML
     private void handleTambahRincian() {
         if (spId == 0) {
@@ -306,6 +327,155 @@ public class AddNewPenawaranController {
             mainController.loadPage("adddetailpenawaran");
         }
     }
+
+    public void showDetailPenawaran(List<PenawaranModel.SPJobComponent> data) {
+        vboxDetail.getChildren().clear(); // Hapus dulu supaya tidak double
+
+        if (data.isEmpty()) {
+            vboxDetail.getChildren().add(new Label("Tidak ada rincian pekerjaan."));
+            return;
+        }
+
+        // Ambil spId dari data pertama (supaya tombol tambah bisa aktif)
+        this.spId = data.get(0).spId;
+        btnTambahRincian.setDisable(this.spId == 0);
+
+        vboxDetail.setFillWidth(true);
+        scrollRincian.setFitToWidth(true);
+
+        var first = data.get(0);
+        VBox suratBox = new VBox(6);
+        suratBox.setPadding(new Insets(10));
+
+        Label h1 = new Label("Perihal: " + first.perihal);
+        Label h2 = new Label("Tanggal: " + first.tanggal_surat_penawaran);
+        Label h3 = new Label("Perusahaan: " + first.namaPerusahaan);
+
+        String headerStyle = "-fx-font-size: 14px;";
+        h1.setStyle(headerStyle);
+        h2.setStyle(headerStyle);
+        h3.setStyle(headerStyle);
+
+        suratBox.getChildren().addAll(h1, h2, h3, new Separator());
+        vboxDetail.getChildren().add(suratBox);
+
+        Map<Integer, VBox> jobGroup = new LinkedHashMap<>();
+
+        for (var d : data) {
+
+            if (!jobGroup.containsKey(d.jobId)) {
+
+                // ================= JOB CONTAINER =================
+                VBox jobContainer = new VBox(12);
+                jobContainer.setPadding(new Insets(20));
+                jobContainer.setMaxWidth(Double.MAX_VALUE);
+                jobContainer.setStyle(
+                        "-fx-background-color: white;" +
+                                "-fx-border-color: #dddddd;" +
+                                "-fx-border-radius: 12;" +
+                                "-fx-background-radius: 12;" +
+                                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);"
+                );
+
+                // ================= HEADER =================
+                VBox jobInfo = new VBox(6);
+
+                String deskripsi = (d.deskripsiPekerjaan == null) ? "---" : d.deskripsiPekerjaan;
+
+                Label p1 = new Label("🛠 Pekerjaan : " + d.namaPekerjaan);
+                Label p2 = new Label("🔧 Mesin     : " + d.namaMesin);
+                Label p3 = new Label("⚙  Spesifikasi: " + d.spesifikasiMesin);
+                Label p4 = new Label("📄 Deskripsi : " + deskripsi);
+
+                p1.setStyle("-fx-font-size: 14px;");
+                p2.setStyle("-fx-font-size: 14px;");
+                p3.setStyle("-fx-font-size: 14px;");
+                p4.setStyle("-fx-font-size: 14px;");
+
+                jobInfo.getChildren().addAll(p1, p2, p3, p4);
+
+                // ================= ACTION BUTTONS =================
+                Button btnEdit = new Button("Edit");
+                btnEdit.setStyle(
+                        "-fx-background-color: #2196f3;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-background-radius: 6;"
+                );
+
+                Button btnDelete = new Button("Delete");
+                btnDelete.setStyle(
+                        "-fx-background-color: #f44336;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-background-radius: 6;"
+                );
+
+                btnEdit.setPrefWidth(80);
+                btnDelete.setPrefWidth(80);
+
+                btnEdit.setPrefHeight(32);
+                btnDelete.setPrefHeight(32);
+
+                final int currentJobId = d.jobId;
+
+                btnDelete.setOnAction(e -> {
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setTitle("Konfirmasi Hapus");
+                    confirm.setHeaderText("Hapus pekerjaan ini?");
+                    confirm.setContentText(
+                            "Semua rincian pekerjaan ini akan ikut terhapus.\n" +
+                                    "Tindakan ini tidak bisa dibatalkan."
+                    );
+
+                    confirm.showAndWait().ifPresent(result -> {
+                        if (result == ButtonType.OK) {
+                            handleDeleteJob(currentJobId);
+                        }
+                    });
+                });
+
+                int jobId = d.jobId;
+                int currentSpId = this.spId;
+
+                btnEdit.setOnAction(e -> {
+                    if (mainController != null) {
+                        mainController.setEditJobContext(currentSpId, jobId);
+                        mainController.loadPage("adddetailpenawaran");
+                    }
+                });
+
+                VBox actionBox = new VBox(6, btnEdit, btnDelete);
+                actionBox.setAlignment(Pos.TOP_RIGHT);
+
+                // ================= HEADER LAYOUT =================
+                HBox header = new HBox(10, jobInfo, actionBox);
+                header.setMaxWidth(Double.MAX_VALUE);
+                HBox.setHgrow(jobInfo, Priority.ALWAYS);
+
+                jobContainer.getChildren().addAll(header, new Separator());
+
+                jobGroup.put(d.jobId, jobContainer);
+            }
+
+            // ================= DETAIL ROW =================
+            VBox jobContainer = jobGroup.get(d.jobId);
+
+            HBox row = new HBox(10);
+            row.setPadding(new Insets(4, 0, 4, 15));
+
+            Label left = new Label("• " + d.namaComponent + "  (Qty: " + d.qty + ")");
+            Label right = new Label("Rp " + String.format("%,.0f", d.hargaKomponen));
+
+            HBox.setHgrow(left, Priority.ALWAYS);
+            right.setAlignment(Pos.CENTER_RIGHT);
+
+            row.getChildren().addAll(left, right);
+            jobContainer.getChildren().add(row);
+        }
+
+
+        vboxDetail.getChildren().addAll(jobGroup.values());
+    }
+
 
     public void showDetailPenawaran(int spId) {
         System.out.println("✅ SP ID masuk ke AddNewPenawaranController: " + spId);

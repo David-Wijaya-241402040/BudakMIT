@@ -110,6 +110,7 @@ public class UserDAO implements UserDaoInterface {
         String passSalt = password + salt;
         String passHash = hashed(passSalt);
         String query = "INSERT INTO users (nickname, email, phone_number, password, salt) VALUES (?, ?, ?, ?, ?)";
+<<<<<<< HEAD
 >>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
         try (PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setString(1, username);
@@ -123,26 +124,90 @@ public class UserDAO implements UserDaoInterface {
 >>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
             int rowsAffected = pst.executeUpdate();
             return rowsAffected > 0;
+=======
+        boolean success = false;
+
+        try {
+            connection.setAutoCommit(false); // mulai transaksi
+
+            try (PreparedStatement pst = connection.prepareStatement(query)) {
+                pst.setString(1, username);
+                pst.setString(2, email);
+                pst.setString(3, noTelp);
+                pst.setString(4, passHash);
+                pst.setString(5, salt);
+
+                int rowsAffected = pst.executeUpdate();
+                if (rowsAffected > 0) {
+                    success = true;
+                } else {
+                    connection.rollback(); // rollback kalau insert gagal
+                    return false;
+                }
+            }
+
+            connection.commit(); // commit kalau sukses
+>>>>>>> c2c9aeaaabe1c6b3bac92ac3ab866f179bb78efd
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback(); // rollback kalau error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            success = false;
+        } finally {
+            try {
+                connection.setAutoCommit(true); // kembalikan auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return false;
+
+        return success;
     }
 
 <<<<<<< HEAD
 =======
     public boolean updatePassword(int userId, String newHashedPassword, String newSalt) {
         String sql = "UPDATE users SET password = ?, salt = ? WHERE user_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, newHashedPassword);
-            stmt.setString(2, newSalt);
-            stmt.setInt(3, userId);
-            int rows = stmt.executeUpdate();
-            return rows > 0; // true kalo update sukses
+        boolean success = false;
+
+        try {
+            connection.setAutoCommit(false); // mulai transaksi
+
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, newHashedPassword);
+                stmt.setString(2, newSalt);
+                stmt.setInt(3, userId);
+
+                int rows = stmt.executeUpdate();
+                if (rows > 0) {
+                    success = true;
+                } else {
+                    connection.rollback(); // rollback kalau update gagal
+                    return false;
+                }
+            }
+
+            connection.commit(); // commit kalau sukses
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            try {
+                connection.rollback(); // rollback kalau error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            success = false;
+        } finally {
+            try {
+                connection.setAutoCommit(true); // kembalikan auto-commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        return success;
     }
 >>>>>>> ba15d41d1a41cbc4adf69da486cc3a09d6012116
 }

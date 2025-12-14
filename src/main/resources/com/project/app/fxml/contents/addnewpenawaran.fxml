@@ -170,12 +170,12 @@
                                             <children>
                                                 <HBox alignment="CENTER_LEFT" layoutX="4.0" prefHeight="34.0" prefWidth="643.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0">
                                                     <children>
-                                                        <TextField prefHeight="31.0" prefWidth="486.0" promptText="Masukkan Nama Perusahaan" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
+                                                        <TextField fx:id="searchField" prefHeight="31.0" prefWidth="486.0" promptText="Cari Nama Pekerjaan" style="-fx-background-radius: 8 0 0 8; -fx-background-color: transparent; -fx-border-color: white;">
                                                             <font>
                                                                 <Font name="Georgia" size="15.0" />
                                                             </font>
                                                         </TextField>
-                                                        <Button mnemonicParsing="false" prefHeight="13.0" prefWidth="41.0" style="-fx-background-color: white; -fx-border-color: #C8C8C8; -fx-border-width: 0 0 0 1;">
+                                                        <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="13.0" prefWidth="41.0" style="-fx-background-color: white; -fx-border-color: #C8C8C8; -fx-border-width: 0 0 0 1;">
                                                             <graphic>
                                                                 <ImageView fitHeight="23.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
