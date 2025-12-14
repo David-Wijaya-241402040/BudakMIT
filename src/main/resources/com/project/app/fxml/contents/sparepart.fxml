@@ -14,22 +14,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.SparepartController">
+<AnchorPane prefHeight="1000.0" prefWidth="1110.0" stylesheets="@../../css/sparepart.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.com.project.app.controller.SparepartController">
    <children>
       <VBox layoutX="255.0" layoutY="156.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <children>
-            <HBox prefHeight="68.0" prefWidth="1070.0">
+            <HBox prefHeight="108.0" prefWidth="1070.0">
                <children>
-                  <VBox alignment="BOTTOM_LEFT" prefHeight="107.0" prefWidth="345.0" spacing="20.0">
+                  <VBox alignment="BOTTOM_LEFT" prefHeight="93.0" prefWidth="1097.0" spacing="10.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SPAREPART" wrappingWidth="288.986328125">
-                           <font>
-                              <Font name="Georgia Bold" size="44.0" />
-                           </font>
-                        </Text>
+                        <VBox prefHeight="66.0" prefWidth="1070.0" style="-fx-border-width: 0 0 3 0; -fx-border-color: black;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="1070.0" spacing="10.0">
+                                 <children>
+                                    <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../images/job-salesoverview.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SPAREPART" wrappingWidth="288.986328125">
+                                       <font>
+                                          <Font name="Georgia Bold" size="44.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List Sparepart">
                            <font>
                               <Font name="Georgia" size="20.0" />
@@ -39,11 +52,11 @@
                   </VBox>
                </children>
             </HBox>
-            <VBox prefHeight="883.0" prefWidth="1070.0" spacing="10.0">
+            <VBox prefHeight="835.0" prefWidth="1070.0" spacing="10.0">
                <children>
                   <AnchorPane prefHeight="31.0" prefWidth="971.0">
                      <children>
-                        <AnchorPane layoutX="-6.0" prefHeight="36.0" prefWidth="454.0" style="-fx-background-color: white; -fx-background-radius: 8 8 8 8; -fx-border-color: #c8c8c8; -fx-border-radius: 8 8 8 8; -fx-border-width: 1 1 1 1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="616.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutX="-6.0" prefHeight="36.0" prefWidth="457.0" style="-fx-background-color: white; -fx-background-radius: 8 8 8 8; -fx-border-color: #c8c8c8; -fx-border-radius: 8 8 8 8; -fx-border-width: 1 1 1 1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="616.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" layoutX="4.0" prefHeight="34.0" prefWidth="643.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0">
                                  <children>
@@ -53,7 +66,7 @@
                                        </font>
                                     </TextField>
                                     <ComboBox fx:id="categoryBox" prefHeight="26.0" prefWidth="153.0" promptText="Categories" style="-fx-background-color: white; -fx-border-color: #c8c8c8; -fx-border-width: 0 1 0 1 2;" />
-                                    <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#goSearch" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: white; -fx-border-color: white;">
+                                    <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#goSearch" prefHeight="33.0" prefWidth="33.0" style="-fx-background-color: transparent;">
                                        <graphic>
                                           <ImageView fitHeight="23.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -68,7 +81,7 @@
                         </AnchorPane>
                         <HBox alignment="TOP_RIGHT" layoutX="660.0" layoutY="-36.0" prefHeight="36.0" prefWidth="574.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Button fx:id="btnAdd" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goAdd" prefHeight="36.0" prefWidth="141.0" text="Add Component">
+                              <Button fx:id="btnAdd" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goAdd" prefHeight="36.0" prefWidth="141.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Add Component" textFill="WHITE">
                                  <graphic>
                                     <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -77,25 +90,25 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnUpdate" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goUpdate" prefHeight="36.0" prefWidth="156.0" text="Update Component">
+                              <Button fx:id="btnUpdate" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goUpdate" prefHeight="36.0" prefWidth="156.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Update Component" textFill="WHITE">
                                  <graphic>
                                     <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../images/close-salesoverview.png" />
+                                          <Image url="@../../images/update.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnDelete" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goDelete" prefHeight="36.0" prefWidth="156.0" text="Delete Component">
+                              <Button fx:id="btnDelete" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goDelete" prefHeight="36.0" prefWidth="156.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Delete Component" textFill="WHITE">
                                  <graphic>
                                     <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../images/close-salesoverview.png" />
+                                          <Image url="@../../images/delete.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnRefresh" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="45.0" prefWidth="99.0" text="Refresh">
+                              <Button fx:id="btnRefresh" graphicTextGap="10.0" mnemonicParsing="false" onAction="#goRefresh" prefHeight="45.0" prefWidth="99.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Refresh" textFill="WHITE">
                                  <graphic>
                                     <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

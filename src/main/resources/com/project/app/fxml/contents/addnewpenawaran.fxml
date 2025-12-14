@@ -23,14 +23,23 @@
                     <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="89.0" prefWidth="1070.0" spacing="20.0" style="-fx-border-color: BLACK; -fx-border-width: 0 0 3 0;">
                             <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
-                                    <font>
-                                        <Font name="Georgia Bold" size="44.0" />
-                                    </font>
-                                    <VBox.margin>
-                                        <Insets />
-                                    </VBox.margin>
-                                </Text>
+                        <HBox spacing="10.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <ImageView fitHeight="51.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/sparepart-salesoverview.png" />
+                                 </image>
+                              </ImageView>
+                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PENAWARAN" wrappingWidth="353.986328125">
+                                          <font>
+                                              <Font name="Georgia Bold" size="44.0" />
+                                          </font>
+                                      </Text>
+                           </children>
+                        </HBox>
                             </children>
                             <HBox.margin>
                                 <Insets />
@@ -71,7 +80,7 @@
                                         </AnchorPane>
                                     </children>
                                 </AnchorPane>
-                                <Button fx:id="btnTambahRincian" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="172.0" text="Tambah Rincian">
+                                <Button fx:id="btnTambahRincian" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="172.0" style="-fx-background-color: black; -fx-background-radius: 8 8 8 8;" text="Tambah Rincian" textFill="WHITE">
                                     <graphic>
                                         <ImageView fitHeight="26.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                                             <image>

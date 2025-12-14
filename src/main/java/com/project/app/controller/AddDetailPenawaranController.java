@@ -121,6 +121,7 @@ public class AddDetailPenawaranController implements Initializable {
                 ItemPenawaranModel selected = itemTableView.getSelectionModel().getSelectedItem();
                 if (selected != null) {
                     itemTableView.getItems().remove(selected);
+                    updateTotalHarga();
                 }
             });
 
