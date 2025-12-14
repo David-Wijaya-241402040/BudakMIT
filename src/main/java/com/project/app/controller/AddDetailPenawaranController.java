@@ -630,15 +630,23 @@ public class AddDetailPenawaranController implements Initializable {
     }
 
     private boolean validateForm() {
-        if (namaPekerjaanField.getText().isEmpty()) {
-            showAlert("Error", "Nama Pekerjaan harus diisi!");
-            namaPekerjaanField.requestFocus();
+        if (namaPekerjaanField.getText().trim().isEmpty()) {
+            showAlert("Validasi Gagal", "Nama pekerjaan tidak boleh kosong!");
             return false;
         }
 
-        if (namaMesinField.getText().isEmpty()) {
-            showAlert("Error", "Nama Mesin harus diisi!");
-            namaMesinField.requestFocus();
+        if (namaMesinField.getText().trim().isEmpty()) {
+            showAlert("Validasi Gagal", "Nama mesin tidak boleh kosong!");
+            return false;
+        }
+
+        if (spesifikasiMesinField.getText().trim().isEmpty()) {
+            showAlert("Validasi Gagal", "Spesifikasi mesin tidak boleh kosong!");
+            return false;
+        }
+
+        if (deskripsiArea.getText() == null || deskripsiArea.getText().trim().isEmpty()) {
+            showAlert("Validasi Gagal", "Deskripsi tidak boleh kosong!");
             return false;
         }
 
