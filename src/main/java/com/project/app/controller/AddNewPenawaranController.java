@@ -23,16 +23,17 @@ public class AddNewPenawaranController {
     @FXML VBox vboxDetail;
     @FXML ScrollPane scrollRincian;
     @FXML Button btnTambahRincian;
-    @FXML
-    private TextField searchField;
-    @FXML
-    private Button btnSearch;
+    @FXML private TextField searchField;
+    @FXML private Button btnSearch;
 
     private SPDetailDAO dao;
     private int spId;
     private MainController mainController;
 
-    public void setMainController(MainController mainController) {this.mainController = mainController;}
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+        mainController.setEditJobContext(0, 0);
+    }
 
     public void setSPId(int spId) {
         this.spId = spId;

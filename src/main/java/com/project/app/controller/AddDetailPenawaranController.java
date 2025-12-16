@@ -153,7 +153,7 @@ public class AddDetailPenawaranController implements Initializable {
         this.mainController = mainController;
 
         // ===== MODE EDIT =====
-        if (mainController.getEditJobId() != null) {
+        if (mainController.getEditJobId() != 0) {
             this.editMode = true;
             this.jobId = mainController.getEditJobId().longValue();
 
